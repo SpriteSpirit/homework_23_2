@@ -15,13 +15,13 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    name = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='Название')
-    description = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='Описание')
+    name = models.CharField(max_length=250, verbose_name='Название')
+    description = models.TextField(verbose_name='Описание')
     image = models.ImageField(upload_to='goods/', verbose_name='Изображение')
-    category = models.CharField(max_length=100, verbose_name='Категория')
-    price = models.IntegerField(verbose_name='Цена')
-    data_create = models.DateTimeField(verbose_name='Дата создания')
-    data_changed = models.DateTimeField(verbose_name='Дата изменения')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория')
+    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена')
+    created_at = models.DateTimeField(default=timezone.now, verbose_name='Дата создания')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
     # manufactured_at = models.DateField(default=timezone.now, verbose_name='Дата производства продукта')
 
     def __str__(self):
