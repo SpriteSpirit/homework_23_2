@@ -1,8 +1,10 @@
 from django.db import models
-from django.utils import timezone
 
 
 class Category(models.Model):
+
+    objects = models.Manager()
+
     name = models.CharField(max_length=100, verbose_name='Название')
     description = models.TextField(verbose_name='Описание')
 
@@ -15,6 +17,9 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+
+    objects = models.Manager()
+
     name = models.CharField(max_length=250, verbose_name='Название')
     description = models.TextField(verbose_name='Описание')
     image = models.ImageField(upload_to='goods/', verbose_name='Изображение')

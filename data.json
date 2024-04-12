@@ -156,6 +156,58 @@
   }
 },
 {
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2024-04-11T16:27:23.750Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "2",
+    "object_repr": "\"Сон\" [БАДЫ] 50.00",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2024-04-11T16:27:23.762Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "1",
+    "object_repr": "Playstation 5 [Электроника] 500.05",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2024-04-11T16:39:48.917Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "3",
+    "object_repr": "Playstation 5 [Электроника] 500",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 16,
+  "fields": {
+    "action_time": "2024-04-11T16:40:08.505Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "2",
+    "object_repr": "\"Сон\" [БАДЫ] 50.00",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\u041e\\u043f\\u0438\\u0441\\u0430\\u043d\\u0438\\u0435\"]}}]"
+  }
+},
+{
   "model": "contenttypes.contenttype",
   "pk": 1,
   "fields": {
@@ -245,28 +297,28 @@
 },
 {
   "model": "catalog.product",
-  "pk": 1,
-  "fields": {
-    "name": "Playstation 5",
-    "description": "Plug and play...",
-    "image": "goods/2aw4wfXmfAfSdad5qqKRK8.jpg",
-    "category": 1,
-    "price": "500.05",
-    "created_at": "2024-04-10T22:54:56Z",
-    "updated_at": "2024-04-11T14:26:38.059Z"
-  }
-},
-{
-  "model": "catalog.product",
   "pk": 2,
   "fields": {
     "name": "\"Сон\"",
-    "description": "- ГАМК [GABA]\r\n- Магния цитрат\r\n- L-Глицин\r\n- Hypotonic",
+    "description": "- ГАМК [GABA]\r\n- Магния цитрат\r\n- L-Глицин",
     "image": "goods/GettyImages-827904418.jpg",
     "category": 2,
     "price": "50.00",
     "created_at": "2024-04-10T23:03:44Z",
-    "updated_at": "2024-04-10T23:05:41.364Z"
+    "updated_at": "2024-04-11T16:40:08.503Z"
+  }
+},
+{
+  "model": "catalog.product",
+  "pk": 3,
+  "fields": {
+    "name": "Playstation 5",
+    "description": "Plag and play",
+    "image": "goods/2aw4wfXmfAfSdad5qqKRK8_BhN1LKB.jpg",
+    "category": 1,
+    "price": "500.00",
+    "created_at": "2024-04-11T16:39:48.913Z",
+    "updated_at": "2024-04-11T16:39:48.913Z"
   }
 }
 ]
