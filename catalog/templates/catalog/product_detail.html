@@ -1,0 +1,26 @@
+{% block content %}
+
+
+<div class="row text-center">
+    {% for object in object_list %}
+    <div class="col-3">
+        <div class="card mb-4 box-shadow bg-dark text-white">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">{{ product.name }}</h4>
+            </div>
+            <div class="card-body">
+                <h1 class="card-title pricing-card-title">${{ product.price }}</h1>
+                <p>{{ description }}</p>
+                <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                    <li>- душица</li>
+                    <li>- чабрец</li>
+                    <li>- мускатный шалфей</li>
+                    <li>- фенхель</li>
+                </ul>
+                <button type="button" class="btn btn-lg btn-block bg-warning text-emphasis-dark">Купить</button>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
