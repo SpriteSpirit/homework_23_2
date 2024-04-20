@@ -1,26 +1,28 @@
+{% extends 'catalog/base.html' %}
+{% load my_filters %}
 {% block content %}
 
-
-<div class="row text-center">
-    {% for object in object_list %}
-    <div class="col-3">
+<div class="row justify-content-center">
+    <div class="col-md-6">
         <div class="card mb-4 box-shadow bg-dark text-white">
+            {% include 'catalog/includes/inc_img.html' %}
             <div class="card-header">
-                <h4 class="my-0 font-weight-normal">{{ product.name }}</h4>
+                <h1 class="card-title pricing-card-title text-center">{{ object.price|currency }}</h1>
             </div>
-            <div class="card-body">
-                <h1 class="card-title pricing-card-title">${{ product.price }}</h1>
-                <p>{{ description }}</p>
-                <ul class="list-unstyled mt-3 mb-4 text-start m-3">
-                    <li>- душица</li>
-                    <li>- чабрец</li>
-                    <li>- мускатный шалфей</li>
-                    <li>- фенхель</li>
-                </ul>
-                <button type="button" class="btn btn-lg btn-block bg-warning text-emphasis-dark">Купить</button>
+            {% include 'catalog/includes/inc_card_body.html' %}
+            <div class="card-footer mb-4 mt-3 m-4 text-center">
+                <button type="button" class="btn btn-lg btn-block bg-warning text-emphasis-dark w-50">Купить
+                </button>
             </div>
         </div>
     </div>
-    {% endfor %}
+    <div class="container m-5">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="{% url 'catalog:create_product' %}">
+                <button type="button" class="btn btn-sm btn-block bg-danger text-white w-10">Добавить товар
+                </button>
+            </a>
+        </div>
+    </div>
 </div>
 {% endblock %}

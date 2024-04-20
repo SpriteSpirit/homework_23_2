@@ -1,324 +1,324 @@
 [
-{
-  "model": "admin.logentry",
-  "pk": 1,
-  "fields": {
-    "action_time": "2024-04-10T22:44:59.907Z",
-    "user": 1,
-    "content_type": 7,
-    "object_id": "1",
-    "object_repr": "Playstation 5\nЭлектроника\n500",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
+  {
+    "model": "admin.logentry",
+    "pk": 1,
+    "fields": {
+      "action_time": "2024-04-10T22:44:59.907Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "1",
+      "object_repr": "Playstation 5\nЭлектроника\n500",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 2,
+    "fields": {
+      "action_time": "2024-04-10T22:55:15.142Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "1",
+      "object_repr": "Playstation 5\nЭлектроника\n500.00",
+      "action_flag": 2,
+      "change_message": "[]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 3,
+    "fields": {
+      "action_time": "2024-04-10T22:55:42.787Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "1",
+      "object_repr": "Playstation 5\nЭлектроника\n500.00",
+      "action_flag": 2,
+      "change_message": "[]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 4,
+    "fields": {
+      "action_time": "2024-04-10T22:55:54.602Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "1",
+      "object_repr": "Playstation 5\nЭлектроника\n500.00",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\u041e\\u043f\\u0438\\u0441\\u0430\\u043d\\u0438\\u0435\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 5,
+    "fields": {
+      "action_time": "2024-04-10T22:57:41.967Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "1",
+      "object_repr": "Playstation 5\nЭлектроника\n500.00",
+      "action_flag": 2,
+      "change_message": "[]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 6,
+    "fields": {
+      "action_time": "2024-04-10T22:57:52.280Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "1",
+      "object_repr": "Playstation 5\nЭлектроника\n500.00",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\u041e\\u043f\\u0438\\u0441\\u0430\\u043d\\u0438\\u0435\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 7,
+    "fields": {
+      "action_time": "2024-04-10T22:58:03.870Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "1",
+      "object_repr": "Playstation 5\nЭлектроника\n500.00",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\u041e\\u043f\\u0438\\u0441\\u0430\\u043d\\u0438\\u0435\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 8,
+    "fields": {
+      "action_time": "2024-04-10T22:58:20.536Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "1",
+      "object_repr": "Playstation 5\nЭлектроника\n500.00",
+      "action_flag": 2,
+      "change_message": "[]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 9,
+    "fields": {
+      "action_time": "2024-04-10T23:05:41.369Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "2",
+      "object_repr": "\"Сон\"\nБАДЫ\n50",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 10,
+    "fields": {
+      "action_time": "2024-04-10T23:17:38.785Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "1",
+      "object_repr": "Playstation 5\nЭлектроника\n500.00",
+      "action_flag": 2,
+      "change_message": "[]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 11,
+    "fields": {
+      "action_time": "2024-04-11T14:26:24.206Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "1",
+      "object_repr": "Playstation 5 [Электроника] 500.00",
+      "action_flag": 2,
+      "change_message": "[]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 12,
+    "fields": {
+      "action_time": "2024-04-11T14:26:38.064Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "1",
+      "object_repr": "Playstation 5 [Электроника] 500.05",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\u0426\\u0435\\u043d\\u0430\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 13,
+    "fields": {
+      "action_time": "2024-04-11T16:27:23.750Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "2",
+      "object_repr": "\"Сон\" [БАДЫ] 50.00",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 14,
+    "fields": {
+      "action_time": "2024-04-11T16:27:23.762Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "1",
+      "object_repr": "Playstation 5 [Электроника] 500.05",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 15,
+    "fields": {
+      "action_time": "2024-04-11T16:39:48.917Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "3",
+      "object_repr": "Playstation 5 [Электроника] 500",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 16,
+    "fields": {
+      "action_time": "2024-04-11T16:40:08.505Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "2",
+      "object_repr": "\"Сон\" [БАДЫ] 50.00",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\u041e\\u043f\\u0438\\u0441\\u0430\\u043d\\u0438\\u0435\"]}}]"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 1,
+    "fields": {
+      "app_label": "admin",
+      "model": "logentry"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 2,
+    "fields": {
+      "app_label": "auth",
+      "model": "permission"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 3,
+    "fields": {
+      "app_label": "auth",
+      "model": "group"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 4,
+    "fields": {
+      "app_label": "auth",
+      "model": "user"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 5,
+    "fields": {
+      "app_label": "contenttypes",
+      "model": "contenttype"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 6,
+    "fields": {
+      "app_label": "sessions",
+      "model": "session"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 7,
+    "fields": {
+      "app_label": "catalog",
+      "model": "product"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 8,
+    "fields": {
+      "app_label": "catalog",
+      "model": "category"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "cv1rj55wv986j96u7gkv0oz8d4haxif7",
+    "fields": {
+      "session_data": ".eJxVjMEOwiAQRP-FsyGwSAGP3v0GssuCVA1NSnsy_rtt0oPOcd6beYuI61Lj2vMcRxYXocXptyNMz9x2wA9s90mmqS3zSHJX5EG7vE2cX9fD_Tuo2Ou2tjwoz2xS8VsUOTTaQ0Am622wWuszGEcFVMYSCJzJBkgNkLBo8Cw-X9ATN20:1rugNY:Jdn2F3tuc9U3DjM1JfRL4GLD1CSbnBfYk1eTSvmyaY0",
+      "expire_date": "2024-04-24T22:25:16.877Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+      "name": "Электроника",
+      "description": ""
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+      "name": "БАДЫ",
+      "description": ""
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+      "name": "\"Сон\"",
+      "description": "- ГАМК [GABA]\r\n- Магния цитрат\r\n- L-Глицин",
+      "image": "goods/GettyImages-827904418.jpg",
+      "category": 2,
+      "price": "50.00",
+      "created_at": "2024-04-10T23:03:44Z",
+      "updated_at": "2024-04-11T16:40:08.503Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 3,
+    "fields": {
+      "name": "Playstation 5",
+      "description": "Plag and play",
+      "image": "goods/2aw4wfXmfAfSdad5qqKRK8_BhN1LKB.jpg",
+      "category": 1,
+      "price": "500.00",
+      "created_at": "2024-04-11T16:39:48.913Z",
+      "updated_at": "2024-04-11T16:39:48.913Z"
+    }
   }
-},
-{
-  "model": "admin.logentry",
-  "pk": 2,
-  "fields": {
-    "action_time": "2024-04-10T22:55:15.142Z",
-    "user": 1,
-    "content_type": 7,
-    "object_id": "1",
-    "object_repr": "Playstation 5\nЭлектроника\n500.00",
-    "action_flag": 2,
-    "change_message": "[]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 3,
-  "fields": {
-    "action_time": "2024-04-10T22:55:42.787Z",
-    "user": 1,
-    "content_type": 7,
-    "object_id": "1",
-    "object_repr": "Playstation 5\nЭлектроника\n500.00",
-    "action_flag": 2,
-    "change_message": "[]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 4,
-  "fields": {
-    "action_time": "2024-04-10T22:55:54.602Z",
-    "user": 1,
-    "content_type": 7,
-    "object_id": "1",
-    "object_repr": "Playstation 5\nЭлектроника\n500.00",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\u041e\\u043f\\u0438\\u0441\\u0430\\u043d\\u0438\\u0435\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 5,
-  "fields": {
-    "action_time": "2024-04-10T22:57:41.967Z",
-    "user": 1,
-    "content_type": 7,
-    "object_id": "1",
-    "object_repr": "Playstation 5\nЭлектроника\n500.00",
-    "action_flag": 2,
-    "change_message": "[]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 6,
-  "fields": {
-    "action_time": "2024-04-10T22:57:52.280Z",
-    "user": 1,
-    "content_type": 7,
-    "object_id": "1",
-    "object_repr": "Playstation 5\nЭлектроника\n500.00",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\u041e\\u043f\\u0438\\u0441\\u0430\\u043d\\u0438\\u0435\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 7,
-  "fields": {
-    "action_time": "2024-04-10T22:58:03.870Z",
-    "user": 1,
-    "content_type": 7,
-    "object_id": "1",
-    "object_repr": "Playstation 5\nЭлектроника\n500.00",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\u041e\\u043f\\u0438\\u0441\\u0430\\u043d\\u0438\\u0435\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 8,
-  "fields": {
-    "action_time": "2024-04-10T22:58:20.536Z",
-    "user": 1,
-    "content_type": 7,
-    "object_id": "1",
-    "object_repr": "Playstation 5\nЭлектроника\n500.00",
-    "action_flag": 2,
-    "change_message": "[]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 9,
-  "fields": {
-    "action_time": "2024-04-10T23:05:41.369Z",
-    "user": 1,
-    "content_type": 7,
-    "object_id": "2",
-    "object_repr": "\"Сон\"\nБАДЫ\n50",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 10,
-  "fields": {
-    "action_time": "2024-04-10T23:17:38.785Z",
-    "user": 1,
-    "content_type": 7,
-    "object_id": "1",
-    "object_repr": "Playstation 5\nЭлектроника\n500.00",
-    "action_flag": 2,
-    "change_message": "[]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 11,
-  "fields": {
-    "action_time": "2024-04-11T14:26:24.206Z",
-    "user": 1,
-    "content_type": 7,
-    "object_id": "1",
-    "object_repr": "Playstation 5 [Электроника] 500.00",
-    "action_flag": 2,
-    "change_message": "[]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 12,
-  "fields": {
-    "action_time": "2024-04-11T14:26:38.064Z",
-    "user": 1,
-    "content_type": 7,
-    "object_id": "1",
-    "object_repr": "Playstation 5 [Электроника] 500.05",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\u0426\\u0435\\u043d\\u0430\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 13,
-  "fields": {
-    "action_time": "2024-04-11T16:27:23.750Z",
-    "user": 1,
-    "content_type": 7,
-    "object_id": "2",
-    "object_repr": "\"Сон\" [БАДЫ] 50.00",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 14,
-  "fields": {
-    "action_time": "2024-04-11T16:27:23.762Z",
-    "user": 1,
-    "content_type": 7,
-    "object_id": "1",
-    "object_repr": "Playstation 5 [Электроника] 500.05",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 15,
-  "fields": {
-    "action_time": "2024-04-11T16:39:48.917Z",
-    "user": 1,
-    "content_type": 7,
-    "object_id": "3",
-    "object_repr": "Playstation 5 [Электроника] 500",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 16,
-  "fields": {
-    "action_time": "2024-04-11T16:40:08.505Z",
-    "user": 1,
-    "content_type": 7,
-    "object_id": "2",
-    "object_repr": "\"Сон\" [БАДЫ] 50.00",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\u041e\\u043f\\u0438\\u0441\\u0430\\u043d\\u0438\\u0435\"]}}]"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 1,
-  "fields": {
-    "app_label": "admin",
-    "model": "logentry"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 2,
-  "fields": {
-    "app_label": "auth",
-    "model": "permission"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 3,
-  "fields": {
-    "app_label": "auth",
-    "model": "group"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 4,
-  "fields": {
-    "app_label": "auth",
-    "model": "user"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 5,
-  "fields": {
-    "app_label": "contenttypes",
-    "model": "contenttype"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 6,
-  "fields": {
-    "app_label": "sessions",
-    "model": "session"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 7,
-  "fields": {
-    "app_label": "catalog",
-    "model": "product"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 8,
-  "fields": {
-    "app_label": "catalog",
-    "model": "category"
-  }
-},
-{
-  "model": "sessions.session",
-  "pk": "cv1rj55wv986j96u7gkv0oz8d4haxif7",
-  "fields": {
-    "session_data": ".eJxVjMEOwiAQRP-FsyGwSAGP3v0GssuCVA1NSnsy_rtt0oPOcd6beYuI61Lj2vMcRxYXocXptyNMz9x2wA9s90mmqS3zSHJX5EG7vE2cX9fD_Tuo2Ou2tjwoz2xS8VsUOTTaQ0Am622wWuszGEcFVMYSCJzJBkgNkLBo8Cw-X9ATN20:1rugNY:Jdn2F3tuc9U3DjM1JfRL4GLD1CSbnBfYk1eTSvmyaY0",
-    "expire_date": "2024-04-24T22:25:16.877Z"
-  }
-},
-{
-  "model": "catalog.category",
-  "pk": 1,
-  "fields": {
-    "name": "Электроника",
-    "description": ""
-  }
-},
-{
-  "model": "catalog.category",
-  "pk": 2,
-  "fields": {
-    "name": "БАДЫ",
-    "description": ""
-  }
-},
-{
-  "model": "catalog.product",
-  "pk": 2,
-  "fields": {
-    "name": "\"Сон\"",
-    "description": "- ГАМК [GABA]\r\n- Магния цитрат\r\n- L-Глицин",
-    "image": "goods/GettyImages-827904418.jpg",
-    "category": 2,
-    "price": "50.00",
-    "created_at": "2024-04-10T23:03:44Z",
-    "updated_at": "2024-04-11T16:40:08.503Z"
-  }
-},
-{
-  "model": "catalog.product",
-  "pk": 3,
-  "fields": {
-    "name": "Playstation 5",
-    "description": "Plag and play",
-    "image": "goods/2aw4wfXmfAfSdad5qqKRK8_BhN1LKB.jpg",
-    "category": 1,
-    "price": "500.00",
-    "created_at": "2024-04-11T16:39:48.913Z",
-    "updated_at": "2024-04-11T16:39:48.913Z"
-  }
-}
 ]

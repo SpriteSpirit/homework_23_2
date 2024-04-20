@@ -1,70 +1,32 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kukushka store</title>
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet"
-          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-</head>
-<body>
-<header class="p-3 text-bg-dark">
-    <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-                    <use xlink:href="#bootstrap"></use>
-                </svg>
-            </a>
+{% extends 'catalog/base.html' %}
+{% block content %}
 
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="/" class="nav-link px-2 text-white">Главная</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Каталог</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Доставка</a></li>
-                <li><a href="/contacts/" class="nav-link px-2 text-secondary">Контакты</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">О нас</a></li>
-            </ul>
-
-            <form method="post" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" name='search' role="search">
-                {% csrf_token %}
-                <input type="search" name="search" class="form-control form-control-dark light" placeholder="Поиск..."
-                       aria-label="Search">
-            </form>
-
-            <div class="text-end">
-                <button type="button" class="btn btn-outline-light me-2">Регистрация</button>
-                <button type="button" class="btn btn-warning">Войти</button>
+<div class="container px-4 py-5 text-center" id="hanging-icons">
+    <div class="row align-items-start justify-content-around">
+        <div class="col d-flex flex-column gap-2">
+            <div>
+                <h3 class="fs-2 text-body-emphasis">Адрес</h3>
+                <p>{{ address|linebreaksbr }}</p>
+            </div>
+        </div>
+        <div class="col d-flex flex-column gap-2">
+            <div>
+                <h3 class="fs-2 text-body-emphasis">Телефон</h3>
+                <p>{{ phone }}</p>
+            </div>
+        </div>
+        <div class="col d-flex flex-column gap-2">
+            <div>
+                <h3 class="fs-2 text-body-emphasis">Мессенджеры</h3>
+                <p>{{ social }}</p>
             </div>
         </div>
     </div>
-</header>
-<div class="container px-4 py-5 text-center" id="hanging-icons">
-    <div class="row align-items-start justify-content-around">
-      <div class="col d-flex flex-column gap-2">
-        <div>
-          <h3 class="fs-2 text-body-emphasis">Адрес</h3>
-          <p> г. Санкт-Петербург, метро Сенная площадь, ул. Садовая, 54</p>
-        </div>
-      </div>
-      <div class="col d-flex flex-column gap-2">
-        <div>
-          <h3 class="fs-2 text-body-emphasis">Телефон</h3>
-          <p>+7 812 123-45-67</p>
-        </div>
-      </div>
-      <div class="col d-flex flex-column gap-2">
-        <div>
-          <h3 class="fs-2 text-body-emphasis">Мессенджеры</h3>
-          <p>Telegram: @kukushka_store</p>
-        </div>
-      </div>
-    </div>
-  </div>
+</div>
 <div class="container text-center">
     <div class="row align-items-center py-5">
         <div class="col-lg-7">
-            <h1 class="display-4 fw-bold lh-1 text-body-emphasis mb-3">У вашей кукушки остались вопросы?</h1>
+            <h1 class="display-4 fw-bold lh-1 text-body-emphasis mb-3">Остались вопросы?</h1>
             <p class="fs-4">Напишите нам ☛</p>
         </div>
         <div class="col-lg-5">
@@ -75,7 +37,8 @@
                     <label for="name">Имя</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com">
+                    <input type="email" class="form-control" id="floatingInput" name="email"
+                           placeholder="name@example.com">
                     <label for="floatingInput">Электронная почта</label>
                 </div>
                 <div class="form-floating mb-3">
@@ -86,25 +49,10 @@
                 </div>
                 <button class="w-100 btn btn-lg btn-warning" type="submit">Отправить</button>
                 <hr class="my-4">
-                <small class="text-body-secondary">Нажимая на кнопку вы подтверждаете, что кукушка купила кукушонку капюшон.</small>
+                <small class="text-body-secondary">Нажимая на кнопку вы даете согласие на обработку персональных данных.</small>
             </form>
         </div>
     </div>
 </div>
 
-    <footer class="py-3 my-4">
-        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-            <li class="nav-item"><a href="/" class="nav-link px-2 text-body-secondary">Главная</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Каталог</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Доставка</a></li>
-            <li class="nav-item"><a href="/contacts/" class="nav-link px-2 text-body-secondary">Контакты</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">О нас</a></li>
-        </ul>
-        <p class="text-center text-body-secondary">© 2024 Kukushka, Inc</p>
-    </footer>
-
-<script src="{% static 'js/bootstrap.bundle.min.js' %}"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
-</body>
-</html>
+{% endblock %}

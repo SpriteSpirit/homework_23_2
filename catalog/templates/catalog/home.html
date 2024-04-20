@@ -1,134 +1,31 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kukushka Store</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-</head>
-<body>
-<header class="p-3 text-bg-dark">
-    <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-                    <use xlink:href="#bootstrap"></use>
-                </svg>
-            </a>
+{% extends 'catalog/base.html' %}
+{% load my_filters %}
+{% block content %}
 
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 text-secondary">Главная</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Каталог</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Доставка</a></li>
-                <li><a href="/contacts/" class="nav-link px-2 text-white">Контакты</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">О нас</a></li>
-            </ul>
+<div class="row justify-content-center">
+    {% for object in object_list %}
+    <div class="col-md-4">
+        <div class="card box-shadow bg-dark h-100 flex-column">
+            {% include 'catalog/includes/inc_img.html' %}
+            <div class="card-header my-1">
+                <div class="product-title-box">
+                    <h3 class="my-2 font-weight-normal text-warning text-center" style="height: 3rem;">
+                        {{ object.name }}</h3>
+                </div>
 
-            <form method="post" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                {% csrf_token %}
-                <input type="search" class="form-control form-control-dark light" name='search' placeholder="Поиск..."
-                       aria-label="Search">
-            </form>
+                <div class="card-body text-center text-white" style="height: 3rem;">
+                    <h1 class="card-title pricing-card-title">{{ object.price|currency}}</h1>
+                </div>
 
-            <div class="text-end">
-                <button type="button" class="btn btn-outline-light me-2">Регистрация</button>
-                <button type="button" class="btn btn-warning">Войти</button>
+                <div class="card-footer mb-0 mt-5">
+                    <a href="{% url 'catalog:product_detail' object.id  %}">
+                        <button type="button" class="btn btn-lg btn-block bg-warning text-emphasis-dark w-100">Подробнее
+                        </button>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-</header>
-<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4">Kukushka Store</h1>
-    <h2><p class="lead">У нас есть всё необходимое для счастья вашей кукушки.</p></h2>
+    {% endfor %}
 </div>
-
-<div class="container">
-    <div class="col-3">
-        <div class="card mb-4 box-shadow bg-dark text-white">
-            <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Playstation 5</h4>
-            </div>
-            <div class="card-body">
-                <h1 class="card-title pricing-card-title">$ 500</h1>
-                <ul class="list-unstyled mt-3 mb-4 text-start m-3">
-                    <li>- 2 геймпада</li>
-                    <li>- Зарядная станция</li>
-                    <li>- VR-очки</li>
-                    <li>- Mortal Combat</li>
-                </ul>
-                <button type="button" class="btn btn-lg btn-block bg-warning text-emphasis-dark">Купить</button>
-            </div>
-        </div>
-
-    </div>
-    <div class="col-3">
-        <div class="card mb-4 box-shadow bg-dark text-white">
-            <div class="card-header">
-                <h4 class="my-0 font-weight-normal">SPA "Relax"</h4>
-            </div>
-            <div class="card-body">
-                <h1 class="card-title pricing-card-title">$ 150</h1>
-                <ul class="list-unstyled mt-3 mb-4 text-start m-3">
-                    <li>- Хамаммам</li>
-                    <li>- Сауна</li>
-                    <li>- Бассейн</li>
-                    <li>- Фито-Бар</li>
-                </ul>
-                <button type="button" class="btn btn-lg btn-block bg-warning text-emphasis-dark">Купить</button>
-            </div>
-        </div>
-
-    </div>
-    <div class="col-3">
-        <div class="card mb-4 box-shadow bg-dark text-white">
-            <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Подушка "Кукушка"</h4>
-            </div>
-            <div class="card-body">
-                <h1 class="card-title pricing-card-title">$ 50</h1>
-                <ul class="list-unstyled mt-3 mb-4 text-start m-3">
-                    <li>- материал: хлопок</li>
-                    <li>- шелковая наволочка</li>
-                    <li>- супер наполнитель</li>
-                    <li>- крепкий сон</li>
-                </ul>
-                <button type="button" class="btn btn-lg btn-block bg-warning text-emphasis-dark">Купить</button>
-            </div>
-        </div>
-
-    </div>
-    <div class="col-3">
-        <div class="card mb-4 box-shadow bg-dark text-white">
-            <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Чай "Тепло Крыма"</h4>
-            </div>
-            <div class="card-body">
-                <h1 class="card-title pricing-card-title">$ 20</h1>
-                <ul class="list-unstyled mt-3 mb-4 text-start m-3">
-                    <li>- душица</li>
-                    <li>- чабрец</li>
-                    <li>- мускатный шалфей</li>
-                    <li>- фенхель</li>
-                </ul>
-                <button type="button" class="btn btn-lg btn-block bg-warning text-emphasis-dark">Купить</button>
-            </div>
-        </div>
-    </div>
-    <footer class="py-3 my-4">
-        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Главная</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Каталог</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Доставка</a></li>
-            <li class="nav-item"><a href="/contacts/" class="nav-link px-2 text-body-secondary">Контакты</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">О нас</a></li>
-        </ul>
-        <p class="text-center text-body-secondary">© 2024 Kukushka, Inc</p>
-    </footer>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
-</body>
-</html>
+{% endblock %}

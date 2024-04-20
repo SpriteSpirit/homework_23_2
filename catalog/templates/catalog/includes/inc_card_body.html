@@ -1,0 +1,13 @@
+<div class="card-body text-left text-white" style="height: 8rem;">
+    <div class="container d-flex justify-content-center">
+        <ul class="list-unstyled">
+            <li class="pl-5"> <!-- Добавили отступ слева для текста -->
+                {% if object.description|length > 100 %}
+                {{ object.description|slice:":100"|linebreaksbr }}
+                {% else %}
+                {{ object.description|linebreaksbr }}
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+</div>
