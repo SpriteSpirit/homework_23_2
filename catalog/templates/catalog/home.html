@@ -16,7 +16,7 @@
                 <div class="card-body text-center text-white" style="height: 3rem;">
                     <h1 class="card-title pricing-card-title">{{ object.price|currency}}</h1>
                 </div>
-
+                {% include 'catalog/includes/inc_card_body.html' %}
                 <div class="card-footer mb-0 mt-5">
                     <a href="{% url 'catalog:product_detail' object.id  %}">
                         <button type="button" class="btn btn-lg btn-block bg-warning text-emphasis-dark w-100">Подробнее
@@ -27,5 +27,15 @@
         </div>
     </div>
     {% endfor %}
+
+    <div class="container mt-5 mb-5">
+        <div class="d-grid gap-2 justify-content-center">
+            <a href="{% url 'catalog:product_list' %}">
+                <button type="button" class="btn btn-block bg-dark text-white">Список всех товаров
+                </button>
+            </a>
+        </div>
+    </div>
+
 </div>
 {% endblock %}

@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
-from django.shortcuts import redirect
+
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 
@@ -66,7 +66,7 @@ def create_product(request):
     form = ProductForm()
 
     if request.method == "POST":
-        form = ProductForm(request.POST, request.FILES)
+        form = ProductForm(request.POST, request.FILES, instance=request.Product)
         if form.is_valid():
             product = form.save(commit=False)
             product.save()
