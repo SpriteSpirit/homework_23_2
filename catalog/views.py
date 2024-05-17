@@ -97,21 +97,11 @@ class CreateProductView(CreateView):
         return reverse('object_list')
 
 
-def get_product_list(request):
-    product_list = Product.objects.order_by('created_at')
-    paginator = Paginator(product_list, 10)
-    page = request.GET.get('page')
+class ProductListView(ListView):
+    model = Product
+    paginate_by = 10
 
-    try:
-        products = paginator.page(page)
-    except PageNotAnInteger:
-        products = paginator.page(1)
-    except EmptyPage:
-        products = paginator.page(paginator.num_pages)
-
-    context = {
-        'title': 'Список товаров',
-        'object_list': products,
-    }
-
-    return render(request, 'catalog/product_list.html', context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'СПИСОК ТОВАРОВ'
+        return context
