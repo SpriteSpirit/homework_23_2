@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect
 
 from django.contrib import messages
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView, CreateView
 
 from .forms import ProductForm

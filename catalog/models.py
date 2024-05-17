@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 
 
 class Category(models.Model):
@@ -36,3 +37,22 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
+
+
+class BlogPost(models.Model):
+    title = models.CharField(max_length=250, verbose_name='Заголовок')
+    slug = models.SlugField(max_length=250, unique=True, verbose_name='URL')
+    content = models.TextField(verbose_name='Содержание')
+    preview = models.ImageField(upload_to='blog_previews/', blank=True, null=True, verbose_name='Превью')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    published = models.BooleanField(default=False, verbose_name='Опубликовано')
+    view_count = models.PositiveIntegerField(default=0, verbose_name='Количеств просмотров')
+
+    def __str__(self):
+        return f'{self.title}'
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+
+        super(BlogPost, self).save(*args, **kwargs)
