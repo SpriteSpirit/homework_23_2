@@ -1,2 +1,5 @@
 {% load my_filters %}
-<img src="{{ object.image|my_media }}" class="card-img-top" alt="Item Image">
+
+<div class="d-flex justify-content-center align-items-center">
+    <img src="{{ object.image|my_media }}" class="card-img-top" style="width: 300px; height: 250px;" alt="Item Image">
+</div>

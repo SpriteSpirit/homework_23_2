@@ -3,35 +3,42 @@ from django.shortcuts import render, get_object_or_404
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
+from django.views.generic import TemplateView
 
 from .forms import ProductForm
 from .models import Product, Category
 
 
-# Create your views here.
-def home(request):
-    context = {
-        'object_list': Product.objects.order_by('-price')[:3],
-        'title': 'KUKUSHKA STORE'
-    }
+class HomeView(TemplateView):
+    template_name = 'catalog/home.html'
 
-    if request.method == 'POST':
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['object_list'] = Product.objects.order_by('-price')[:3]
+        context['title'] = 'KUKUSHKA STORE'
+
+        return context
+
+    def post(self, request, *args, **kwargs):
         search = request.POST.get('search')
-
         print(f'Search: {search}')
 
-    return render(request, 'catalog/home.html', context)
+        return self.get(request, *args, **kwargs)
 
 
-def contacts(request):
-    context = {
-        'title': 'КОНТАКТЫ',
-        'address': 'г. Санкт-Петербург,\n м. Сенная площадь,\n ул. Садовая, 54',
-        'phone': '+7 (812) 123-45-67',
-        'social': 'Telegram: @kukushka_store',
-    }
+class ContactsView(TemplateView):
+    template_name = 'catalog/contacts.html'
 
-    if request.method == 'POST':
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'КОНТАКТЫ'
+        context['address'] = 'г. Санкт-Петербург,\n м. Сенная площадь,\n ул. Садовая, 54'
+        context['phone'] = '+7 (812) 123-45-67'
+        context['social'] = 'Telegram: @kukushka_store'
+
+        return context
+
+    def post(self, request, *args, **kwargs):
         name = request.POST.get('name')
         email = request.POST.get('email')
         phone = request.POST.get('phone')
@@ -42,7 +49,7 @@ def contacts(request):
         else:
             print(f'Имя: {name}\nЭл.Почта: {email}\nТелефон:{phone}')
 
-    return render(request, 'catalog/contacts.html', context)
+        return self.get(request, *args, **kwargs)
 
 
 def categories(request):
@@ -66,7 +73,7 @@ def create_product(request):
     form = ProductForm()
 
     if request.method == "POST":
-        form = ProductForm(request.POST, request.FILES, instance=request.Product)
+        form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             product = form.save(commit=False)
             product.save()
