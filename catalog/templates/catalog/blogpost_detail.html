@@ -5,16 +5,33 @@
 <div class="row justify-content-center">
     <div class="col-md-6">
         <div class="card mb-4 box-shadow bg-dark text-white">
-            {% include 'catalog/includes/inc_img.html' %}
-            <div class="card-header">
+            <div class="card-header text-center">
                 <h1>{{ blogpost.title }}</h1>
-                <p>{{ blogpost.content }}</p>
                 {% if blogpost.preview %}
-                <img src="{{ blogpost.preview.url }}" alt="{{ blogpost.title }}">
-                {% endif %}
-                <p>Views: {{ blogpost.views }}</p>
-                <a href="{% url 'blogpost_update' blogpost.slug %}">Редактировать</a>
-                <a href="{% url 'blogpost_delete' blogpost.slug %}">Удалить</a>
+                <div class="card d-flex justify-content-center align-items-center bg-dark">
+                    <img src="{{ blogpost.preview.url }}" style="width: 400px; height: 400px;"
+                         alt="{{ blogpost.title }}">
+                    {% endif %}
+                </div>
+                <div class="card d-flex justify-content-center align-items-center bg-dark text-white">
+                    <p>{{ blogpost.content }}</p>
+                </div>
+                <div class="col-md-12">
+                    <p>Просмотров: {{ blogpost.view_count }}</p>
+                </div>
+                <div class="col-md-12">
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <a href="{% url 'catalog:blogpost_update' blogpost.slug %}">
+                            <button type="button" class="m-2 btn btn-warning">Редактировать</button>
+                        </a>
+                        <a href="{% url 'catalog:blogpost_confirm_delete' blogpost.slug %}">
+                            <button type="button" class="m-2 btn btn-danger">Удалить</button>
+                        </a>
+                        <a href="{% url 'catalog:blogpost_list' %}">
+                            <button type="button" class="m-2 btn btn-success">Назад</button>
+                        </a>
+                    </div>
+                </div>
             </div>
             {% include 'catalog/includes/inc_card_body.html' %}
         </div>

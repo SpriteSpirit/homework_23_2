@@ -1,6 +1,8 @@
 from django.db import models
-from django.utils.text import slugify
-
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.urls import reverse
+from post_office import mail
 
 class Category(models.Model):
 
@@ -41,7 +43,7 @@ class Product(models.Model):
 
 class BlogPost(models.Model):
     title = models.CharField(max_length=250, verbose_name='Заголовок')
-    slug = models.SlugField(max_length=250, unique=True, verbose_name='URL')
+    slug = models.CharField(max_length=150, null=True, blank=True, verbose_name='slug')
     content = models.TextField(verbose_name='Содержание')
     preview = models.ImageField(upload_to='blog_previews/', blank=True, null=True, verbose_name='Превью')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
@@ -51,8 +53,5 @@ class BlogPost(models.Model):
     def __str__(self):
         return f'{self.title}'
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title)
-
-        super(BlogPost, self).save(*args, **kwargs)
+    def get_absolute_url(self):
+        return reverse('catalog:blogpost_detail', kwargs={'slug': self.slug})

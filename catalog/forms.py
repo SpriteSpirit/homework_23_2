@@ -11,4 +11,4 @@ class ProductForm(forms.ModelForm):
 class BlogPostForm(forms.ModelForm):
     class Meta:
         model = BlogPost
-        fields = ['title', 'slug', 'content', 'preview', 'published', 'view_count']
+        fields = ['title', 'content', 'preview', 'published']
