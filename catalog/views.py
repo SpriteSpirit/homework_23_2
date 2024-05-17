@@ -1,9 +1,10 @@
 from django.http import JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
-from django.views.generic import TemplateView, ListView, DetailView
+from django.urls import reverse
+from django.views.generic import TemplateView, ListView, DetailView, CreateView
 
 from .forms import ProductForm
 from .models import Product, Category
@@ -82,27 +83,18 @@ class ProductDetailView(DetailView):
         return get_object_or_404(Product, id=pk)
 
 
-def create_product(request):
-    form = ProductForm()
+class CreateProductView(CreateView):
+    model = Product
+    form_class = ProductForm
 
-    if request.method == "POST":
-        form = ProductForm(request.POST, request.FILES)
-        if form.is_valid():
-            product = form.save(commit=False)
-            product.save()
-            messages.success(request, 'Товар успешно создан')
-            # return JsonResponse({'product': product.name}, status=200)
-        else:
-            return JsonResponse({'product_error': form.errors.as_json()},
-                                status=200)
-        # return redirect('object_list')
-    context = {
-        'title': 'Создание товара',
-        'form': form,
-        'categories': Category.objects.all(),
-    }
+    def form_valid(self, form):
+        product = form.save(commit=False)
+        product.save()
+        messages.success(self.request, 'Товар успешно создан')
+        return redirect('object_list')
 
-    return render(request, 'catalog/create_product.html', context)
+    def get_success_url(self):
+        return reverse('object_list')
 
 
 def get_product_list(request):
