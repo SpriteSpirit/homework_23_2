@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 
 from .forms import ProductForm
 from .models import Product, Category
@@ -52,12 +52,18 @@ class ContactsView(TemplateView):
         return self.get(request, *args, **kwargs)
 
 
-def categories(request):
-    context = {
-        'title': 'КАТАЛОГ',
-        'object_list': Category.objects.all().order_by('name'),
-    }
-    return render(request, 'catalog/categories.html', context)
+class CategoryListView(ListView):
+    model = Category
+    context_object_name = 'object_list'
+    template_name = 'catalog/categories.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'КАТАЛОГ'
+        return context
+
+    def get_queryset(self):
+        return super().get_queryset().order_by('name')
 
 
 def get_product_detail(request, pk):
