@@ -1,9 +1,7 @@
-from django.http import JsonResponse
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect
 
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView, CreateView
 
 from .forms import ProductForm
@@ -91,15 +89,15 @@ class CreateProductView(CreateView):
         product = form.save(commit=False)
         product.save()
         messages.success(self.request, 'Товар успешно создан')
-        return redirect('object_list')
+        return redirect('catalog:product_list')
 
     def get_success_url(self):
-        return reverse('object_list')
+        return reverse_lazy('catalog:product_list')
 
 
 class ProductListView(ListView):
     model = Product
-    paginate_by = 10
+    paginate_by = 12
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
