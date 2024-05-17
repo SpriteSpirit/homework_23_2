@@ -1,0 +1,16 @@
+{% extends 'catalog/base.html' %}
+{% load my_filters %}
+{% block content %}
+
+<div class="row justify-content-md-center">
+    <h1>Blog Posts</h1>
+    <ul>
+        {% for blogpost in blogposts %}
+        <li>
+            <a href="{% url 'blogpost_detail' blogpost.slug %}">{{ blogpost.title }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'blogpost_create' %}">Создать новый пост</a>
+</div>
+{% endblock %}

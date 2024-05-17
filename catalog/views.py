@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView, CreateView
 
 from .forms import ProductForm
-from .models import Product, Category
+from .models import Product, Category, BlogPost
 
 
 class HomeView(TemplateView):
@@ -103,3 +103,25 @@ class ProductListView(ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'СПИСОК ТОВАРОВ'
         return context
+
+
+class BlogPostListView(ListView):
+    model = BlogPost
+    template_name = 'catalog/blogpost_list.html'
+    context_object_name = 'blogposts'
+    paginate_by = 3
+
+
+class BlogPostDetailView(DetailView):
+    model = BlogPost
+    template_name = 'catalog/blogpost_detail.html'
+    context_object_name = 'blogpost'
+    slug_field = 'slug'
+    slug_url_kwarg = 'slug'
+
+    def get_object(self, queryset=None):
+        object = super().get_object(queryset=queryset)
+        object.views += 1
+        object.save(update_fields=['views'])
+
+        return object

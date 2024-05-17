@@ -1,0 +1,23 @@
+{% extends 'catalog/base.html' %}
+{% load my_filters %}
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card mb-4 box-shadow bg-dark text-white">
+            {% include 'catalog/includes/inc_img.html' %}
+            <div class="card-header">
+                <h1>{{ blogpost.title }}</h1>
+                <p>{{ blogpost.content }}</p>
+                {% if blogpost.preview %}
+                <img src="{{ blogpost.preview.url }}" alt="{{ blogpost.title }}">
+                {% endif %}
+                <p>Views: {{ blogpost.views }}</p>
+                <a href="{% url 'blogpost_update' blogpost.slug %}">Редактировать</a>
+                <a href="{% url 'blogpost_delete' blogpost.slug %}">Удалить</a>
+            </div>
+            {% include 'catalog/includes/inc_card_body.html' %}
+        </div>
+    </div>
+</div>
+{% endblock %}
