@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, DetailView
 
 from .forms import ProductForm
 from .models import Product, Category
@@ -66,13 +66,20 @@ class CategoryListView(ListView):
         return super().get_queryset().order_by('name')
 
 
-def get_product_detail(request, pk):
-    product = get_object_or_404(Product, id=pk)
-    context = {
-        'title': product.name,
-        'object': product,
-    }
-    return render(request, 'catalog/product_detail.html', context)
+class ProductDetailView(DetailView):
+    model = Product
+    context_object_name = 'object'
+    template_name = 'catalog/product_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = self.object.name
+        return context
+
+    def get_object(self, queryset=None):
+        pk = self.kwargs.get(self.pk_url_kwarg)
+
+        return get_object_or_404(Product, id=pk)
 
 
 def create_product(request):
