@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, redirect
 
 from django.contrib import messages
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, ListView, DetailView, CreateView
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from .forms import ProductForm
 from .models import Product, Category, BlogPost
@@ -125,3 +125,23 @@ class BlogPostDetailView(DetailView):
         object.save(update_fields=['views'])
 
         return object
+
+
+class BlogPostCreateView(CreateView):
+    model = BlogPost
+    template_name = 'catalog/blogpost_form.html'
+    fields = ['title', 'content', 'preview', 'published']
+    success_url = reverse_lazy('catalog:blogpost_list')
+
+
+class BlogPostUpdateView(UpdateView):
+    model = BlogPost
+    template_name = 'catalog/blogpost_form.html'
+    fields = ['title', 'content', 'preview', 'published']
+    success_url = reverse_lazy('catalog:blogpost_list')
+
+
+class BlogPostDeleteView(DeleteView):
+    model = BlogPost
+    template_name = 'catalog/blogpost_confirm_delete.html'
+    success_url = reverse_lazy('catalog:blogpost_list')

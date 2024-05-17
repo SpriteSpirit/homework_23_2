@@ -1,0 +1,20 @@
+{% extends 'catalog/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="container w-50">
+        <form method="post" class="user-update-form" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="mb-3">
+                <button type="submit" class="btn btn-danger">Сохранить</button>
+                <a href="{% url 'catalog:blogpost_list' %}">
+                    <button type="button" class="btn btn-success">Назад</button>
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
