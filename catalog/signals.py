@@ -8,11 +8,13 @@ from .models import BlogPost
 # Сигнал, который отправляет письмо, если статья достигла 100 просмотров.
 @receiver(post_save, sender=BlogPost)
 def send_congratulations_email(instance, **kwargs):
-    if instance.view_count == 100:
+    congrats_count = 100
+
+    if instance.view_count == congrats_count:
         url = instance.get_absolute_url()
         send_mail(
             'Поздравляем с достижением!',
-            f'Ваша статья "{instance.title}" достигла 100 просмотров!'
+            f'Ваша статья "{instance.title}" достигла {congrats_count} просмотров!'
             f'Вы можете просмотреть ее по ссылке: {url}',
             settings.DEFAULT_FROM_EMAIL,
             [settings.EMAIL_HOST_USER],
