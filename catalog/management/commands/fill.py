@@ -10,7 +10,7 @@ class Command(BaseCommand):
     def json_read_categories():
         categories = []
         # Здесь мы получаем данные из фикстур с категориями
-        with open('data.json', 'r', encoding='utf-8') as file:
+        with open('db.json', 'r', encoding='utf-8') as file:
             data = json.load(file)
 
             for item in data:
@@ -23,7 +23,7 @@ class Command(BaseCommand):
     def json_read_products():
         products = []
         # Здесь мы получаем данные из фикстур с продуктами
-        with open('data.json', 'r', encoding='utf-8') as file:
+        with open('db.json', 'r', encoding='utf-8') as file:
             data = json.load(file)
 
             for item in data:
