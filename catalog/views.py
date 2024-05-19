@@ -1,7 +1,8 @@
 from django.shortcuts import get_object_or_404, redirect
-# from django.utils.text import slugify
+
 from django.contrib import messages
-from transliterate import slugify
+from .utils import slugify
+
 from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 
@@ -116,7 +117,7 @@ class BlogPostListView(ListView):
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset(*args, **kwargs)
         queryset = queryset.filter(published=True)
-        queryset = queryset.order_by('-title')
+        queryset = queryset.order_by('created_at')
 
         return queryset
 
@@ -127,11 +128,11 @@ class BlogPostDetailView(DetailView):
     context_object_name = 'blogpost'
 
     def get_object(self, queryset=None):
-        self.object = super().get_object(queryset)
-        self.object.view_count += 1
-        self.object.save()
+        blog = super().get_object(queryset)
+        blog.view_count += 1
+        blog.save()
 
-        return self.object
+        return blog
 
 
 class BlogPostCreateView(CreateView):
@@ -142,11 +143,11 @@ class BlogPostCreateView(CreateView):
 
     def form_valid(self, form):
         if form.is_valid():
-            self.object = form.save(commit=False)
-            print(f"Before: Title: {self.object.title}, Slug: {self.object.slug}")
-            self.object.slug = slugify(self.object.title.lower().replace(' ', '-'))
-            print(f"After: Title: {self.object.title}, Slug: {self.object.slug}")
-            self.object.save()
+            blog = form.save(commit=False)
+            print(f"Before: Title: {blog.title}, Slug: {blog.slug}")
+            blog.slug = slugify(blog.title)
+            print(f"After: Title: {blog.title}, Slug: {blog.slug}")
+            blog.save()
 
         return super().form_valid(form)
 
@@ -158,11 +159,11 @@ class BlogPostUpdateView(UpdateView):
 
     def form_valid(self, form):
         if form.is_valid():
-            self.object = form.save(commit=False)
-            print(f"Before: Title: {self.object.title}, Slug: {self.object.slug}")
-            self.object.slug = slugify(self.object.title.lower().replace(' ', '-'))
-            print(f"After: Title: {self.object.title}, Slug: {self.object.slug}")
-            self.object.save()
+            blog = form.save(commit=False)
+            print(f"Before: Title: {blog.title}, Slug: {blog.slug}")
+            blog.slug = slugify(blog.title)
+            print(f"After: Title: {blog.title}, Slug: {blog.slug}")
+            blog.save()
 
         return super().form_valid(form)
 

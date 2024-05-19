@@ -16,6 +16,6 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(BlogPost)
 class BlogPostAdmin(admin.ModelAdmin):
-    list_display = ['title', 'slug', 'content', 'preview', 'published']
-    list_filter = ['title']
+    list_display = ['title', 'slug', 'content', 'preview', 'published', 'view_count', 'created_at']
+    list_filter = ['title', 'created_at']
     search_fields = ['title', 'content']

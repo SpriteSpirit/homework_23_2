@@ -36,8 +36,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'post_office',
-
     'catalog',
 ]
 
@@ -77,9 +75,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'shop',
+        'NAME': 'shop2',
         'USER': 'postgres',
-        'PASSWORD': '2277',
+        'PASSWORD': '1z384AB732cd',  # macOS 2277
         'HOST': 'localhost',
         'PORT': '5432',
     }

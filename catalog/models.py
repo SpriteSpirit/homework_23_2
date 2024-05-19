@@ -48,6 +48,9 @@ class BlogPost(models.Model):
     published = models.BooleanField(default=False, verbose_name='Опубликовано')
     view_count = models.PositiveIntegerField(default=0, verbose_name='Количеств просмотров')
 
+    class Meta:
+        ordering = ['-created_at']
+
     def __str__(self):
         return f'{self.title}'
 
