@@ -1,5 +1,5 @@
 from django import forms
-from .models import Product, BlogPost
+from .models import Product, BlogPost, Version
 
 FORBIDDEN_WORDS = ['казино', 'криптовалюта', 'крипта', 'биржа',
                    'дешево', 'бесплатно', 'обман', 'полиция', 'радар']
@@ -29,3 +29,13 @@ class BlogPostForm(forms.ModelForm):
     class Meta:
         model = BlogPost
         fields = ['title', 'content', 'preview', 'published']
+
+
+class VersionForm(forms.ModelForm):
+
+    class Meta:
+        model = Version
+        fields = ['product','version_number','version_name', 'is_current']
+        widgets = {
+            'is_current': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
