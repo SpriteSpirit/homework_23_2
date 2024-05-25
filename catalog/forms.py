@@ -5,7 +5,19 @@ FORBIDDEN_WORDS = ['казино', 'криптовалюта', 'крипта', '
                    'дешево', 'бесплатно', 'обман', 'полиция', 'радар']
 
 
-class ProductForm(forms.ModelForm):
+class StyleFormMixin:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+            field.widget.attrs['placeholder'] = field.label
+
+            if field_name == 'is_current':
+                field.widget.attrs['class'] = 'form-check-input'
+
+
+class ProductForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Product
         fields = ['name', 'description', 'category', 'image', 'price']
@@ -31,11 +43,25 @@ class BlogPostForm(forms.ModelForm):
         fields = ['title', 'content', 'preview', 'published']
 
 
-class VersionForm(forms.ModelForm):
-
+class VersionForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Version
-        fields = ['product','version_number','version_name', 'is_current']
-        widgets = {
-            'is_current': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-        }
+        fields = '__all__'
+
+    def clean(self):
+        cleaned_data = super().clean()
+        product = cleaned_data.get('product')
+        is_current = cleaned_data.get('is_current')
+
+        if is_current:
+            if self.instance.pk is None:  # Проверяем, что экземпляр не новый
+                Version.objects.filter(product=product).exclude(pk=self.instance.pk).update(is_current=False)
+                raise forms.ValidationError("Необходимо сохранить версию перед установкой ее в качестве активной.")
+
+            existing_current_versions = Version.objects.filter(product=product, is_current=True)
+
+            if existing_current_versions.exclude(pk=self.instance.pk).exists():
+                raise forms.ValidationError('Только одна версия может быть активной')
+
+            return cleaned_data
+

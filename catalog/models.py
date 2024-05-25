@@ -3,7 +3,6 @@ from django.urls import reverse
 
 
 class Category(models.Model):
-
     objects = models.Manager()
 
     name = models.CharField(max_length=100, verbose_name='Название')
@@ -19,7 +18,6 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-
     objects = models.Manager()
 
     name = models.CharField(max_length=250, verbose_name='Название')
@@ -29,6 +27,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
+
     # manufactured_at = models.DateField(default=timezone.now, verbose_name='Дата производства продукта')
 
     def __str__(self):
@@ -50,6 +49,8 @@ class BlogPost(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+        verbose_name = 'Блог пост'
+        verbose_name_plural = 'Блог посты'
 
     def __str__(self):
         return f'{self.title}'
@@ -59,10 +60,17 @@ class BlogPost(models.Model):
 
 
 class Version(models.Model):
+    objects = models.Manager()
+
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Продукт')
     version_number = models.CharField(max_length=10, verbose_name='Номер версии')
-    version_name = models.CharField(max_length=100)
+    version_name = models.CharField(max_length=100, verbose_name='Название версии')
     is_current = models.BooleanField(default=False, verbose_name='Текущая версия')
 
+    class Meta:
+        verbose_name = 'Версия'
+        verbose_name_plural = 'Версии'
+
     def __str__(self):
-        return f'{self.product.name} {self.version_number} {self.version_name}'
+        return f'{self.product} {self.version_number} {self.version_name} {self.is_current}'
+
