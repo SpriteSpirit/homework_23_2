@@ -7,7 +7,7 @@ from .utils import slugify
 from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from .forms import ProductForm, VersionForm
+from .forms import ProductForm, VersionForm, BlogPostForm
 from .models import Product, Category, BlogPost, Version
 
 
@@ -149,7 +149,7 @@ class ProductUpdateView(UpdateView):
             formset.instance = self.object
             formset.save()
 
-        messages.success(self.request, 'Товар успешно создан')
+        messages.success(self.request, 'Товар успешно обновлен')
 
         return super().form_valid(form)
 
@@ -196,9 +196,22 @@ class BlogPostCreateView(CreateView):
     fields = ['title', 'content', 'preview', 'published']
     success_url = reverse_lazy('catalog:blogpost_list')
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        # Применяем класс CSS "form-control" ко всем полям формы
+        for field_name, field in form.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+            if field_name == 'published':
+                field.widget.attrs['class'] = 'form-check-input'
+        return form
+
     def form_valid(self, form):
-        if form.is_valid():
-            blog = form.save(commit=False)
+        formset = self.get_context_data()['formset']
+        self.object = form.save()
+
+        if form.is_valid() and formset.is_valid():
+            formset.instance = self.object
+            blog = formset.save(commit=False)
             print(f"Before: Title: {blog.title}, Slug: {blog.slug}")
             blog.slug = slugify(blog.title)
             print(f"After: Title: {blog.title}, Slug: {blog.slug}")
@@ -212,9 +225,22 @@ class BlogPostUpdateView(UpdateView):
     template_name = 'catalog/blogpost_form.html'
     fields = ['title', 'content', 'preview', 'published']
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        # Применяем класс CSS "form-control" ко всем полям формы
+        for field_name, field in form.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+            if field_name == 'published':
+                field.widget.attrs['class'] = 'form-check-input'
+        return form
+
     def form_valid(self, form):
-        if form.is_valid():
-            blog = form.save(commit=False)
+        formset = self.get_context_data()['formset']
+        self.object = form.save()
+
+        if form.is_valid() and formset.is_valid():
+            formset.instance = self.object
+            blog = formset.save(commit=False)
             print(f"Before: Title: {blog.title}, Slug: {blog.slug}")
             blog.slug = slugify(blog.title)
             print(f"After: Title: {blog.title}, Slug: {blog.slug}")

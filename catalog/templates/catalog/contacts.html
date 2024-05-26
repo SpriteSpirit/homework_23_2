@@ -26,23 +26,23 @@
 <div class="container text-center">
     <div class="row align-items-center py-5">
         <div class="col-lg-7">
-            <h1 class="display-4 fw-bold lh-1 text-body-emphasis mb-3">Остались вопросы?</h1>
+            <h1 class="display-4 fw-bold lh-1 text-body mb-3">Остались вопросы?</h1>
             <p class="fs-4">Напишите нам ☛</p>
         </div>
         <div class="col-lg-5">
             <form method="post" class="p-4 p-md-5 border rounded-3 bg-body-tertiary">
                 {% csrf_token %}
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Имя">
+                    <input type="text" class="form-control" id="name" name="name">
                     <label for="name">Имя</label>
                 </div>
                 <div class="form-floating mb-3">
                     <input type="email" class="form-control" id="floatingInput" name="email"
-                           placeholder="name@example.com">
+                           >
                     <label for="floatingInput">Электронная почта</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="tel" class="form-control" id="phone" name='phone' placeholder="Телефон">
+                    <input type="tel" class="form-control" id="phone" name='phone'>
                     <label for="phone">Номер телефона</label>
                 </div>
                 <div class="checkbox mb-3">

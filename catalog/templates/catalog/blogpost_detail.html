@@ -6,9 +6,9 @@
     <div class="col-md-6">
         <div class="card mb-4 box-shadow bg-dark text-white">
             <div class="card-header text-center">
-                <h1>{{ blogpost.title }}</h1>
+                <h1 class="text-white">{{ blogpost.title }}</h1>
                 {% if blogpost.preview %}
-                <div class="card d-flex justify-content-center align-items-center bg-dark">
+                <div class="card d-flex justify-content-center align-items-center bg-dark text-white">
                     <img src="{{ blogpost.preview.url }}" style="width: 400px; height: 400px;"
                          alt="{{ blogpost.title }}">
                     {% endif %}

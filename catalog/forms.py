@@ -1,4 +1,7 @@
 from django import forms
+from django.core.exceptions import ValidationError
+from django.db import transaction
+
 from .models import Product, BlogPost, Version
 
 FORBIDDEN_WORDS = ['казино', 'криптовалюта', 'крипта', 'биржа',
@@ -48,6 +51,25 @@ class VersionForm(StyleFormMixin, forms.ModelForm):
         model = Version
         fields = '__all__'
 
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        product = self.cleaned_data.get('product')
+
+        # Проверяем, если это новая запись
+        if instance.pk is None:
+            # Убедимся, что нет других текущих версий для продукта перед обновлением
+            with transaction.atomic():
+                Version.objects.filter(product=product, is_current=True).update(is_current=False)
+                instance.is_current = True
+                if commit:
+                    instance.save()
+        else:
+            # Если это обновление существующей записи, оставляем все как есть по умолчанию
+            if commit:
+                instance.save()
+
+        return instance
+
     def clean(self):
         cleaned_data = super().clean()
         product = cleaned_data.get('product')
@@ -64,4 +86,3 @@ class VersionForm(StyleFormMixin, forms.ModelForm):
                 raise forms.ValidationError('Только одна версия может быть активной')
 
             return cleaned_data
-

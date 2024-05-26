@@ -39,6 +39,8 @@ class Product(models.Model):
 
 
 class BlogPost(models.Model):
+    objects = models.Manager()
+
     title = models.CharField(max_length=250, verbose_name='Заголовок')
     slug = models.CharField(max_length=150, null=True, blank=True, verbose_name='slug')
     content = models.TextField(verbose_name='Содержание')
