@@ -23,7 +23,7 @@ class StyleFormMixin:
 class ProductForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name', 'description', 'category', 'image', 'price']
+        fields = '__all__'
 
     def clean_name(self):
         name = self.cleaned_data['name']
@@ -45,6 +45,13 @@ class BlogPostForm(forms.ModelForm):
         model = BlogPost
         fields = ['title', 'content', 'preview', 'published']
 
+    def clean_title(self):
+        title = self.cleaned_data['title']
+
+        if any(word in title.lower() for word in FORBIDDEN_WORDS):
+            raise forms.ValidationError('Нельзя использовать запрещенные слова')
+        return title
+
 
 class VersionForm(StyleFormMixin, forms.ModelForm):
     class Meta:
@@ -57,32 +64,23 @@ class VersionForm(StyleFormMixin, forms.ModelForm):
 
         # Проверяем, если это новая запись
         if instance.pk is None:
-            # Убедимся, что нет других текущих версий для продукта перед обновлением
+            # Обновите другие текущие версии для продукта, прежде чем устанавливать текущую версию
             with transaction.atomic():
                 Version.objects.filter(product=product, is_current=True).update(is_current=False)
-                instance.is_current = True
-                if commit:
-                    instance.save()
-        else:
-            # Если это обновление существующей записи, оставляем все как есть по умолчанию
-            if commit:
-                instance.save()
+
+        instance.is_current = True
+        if commit:
+            instance.save()
 
         return instance
 
     def clean(self):
         cleaned_data = super().clean()
         product = cleaned_data.get('product')
-        is_current = cleaned_data.get('is_current')
+        version_number = cleaned_data.get('version_number')
 
-        if is_current:
-            if self.instance.pk is None:  # Проверяем, что экземпляр не новый
-                Version.objects.filter(product=product).exclude(pk=self.instance.pk).update(is_current=False)
-                raise forms.ValidationError("Необходимо сохранить версию перед установкой ее в качестве активной.")
+        # Проверка уникальности версии для продукта
+        if Version.objects.filter(product=product, version_number=version_number).exclude(pk=self.instance.pk).exists():
+            raise forms.ValidationError('Такая версия уже существует для этого продукта.')
 
-            existing_current_versions = Version.objects.filter(product=product, is_current=True)
-
-            if existing_current_versions.exclude(pk=self.instance.pk).exists():
-                raise forms.ValidationError('Только одна версия может быть активной')
-
-            return cleaned_data
+        return cleaned_data

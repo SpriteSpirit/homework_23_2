@@ -1,6 +1,6 @@
+from django.db import transaction
 from django.forms import inlineformset_factory
-from django.shortcuts import get_object_or_404, redirect
-
+from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from .utils import slugify
 
@@ -122,6 +122,12 @@ class ProductListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'СПИСОК ТОВАРОВ'
+
+        for product in self.object_list:
+            current_version = Version.objects.filter(product=product, is_current=True).first()
+            print(current_version)
+            product.current_version = current_version.version_name if current_version is not None else None
+
         return context
 
 
@@ -145,9 +151,10 @@ class ProductUpdateView(UpdateView):
         formset = self.get_context_data()['formset']
         self.object = form.save()
 
-        if form.is_valid() and formset.is_valid():
-            formset.instance = self.object
-            formset.save()
+        with transaction.atomic():
+            if formset.is_valid():
+                formset.instance = self.object
+                formset.save()
 
         messages.success(self.request, 'Товар успешно обновлен')
 
@@ -192,8 +199,8 @@ class BlogPostDetailView(DetailView):
 
 class BlogPostCreateView(CreateView):
     model = BlogPost
+    form_class = BlogPostForm
     template_name = 'catalog/blogpost_form.html'
-    fields = ['title', 'content', 'preview', 'published']
     success_url = reverse_lazy('catalog:blogpost_list')
 
     def get_form(self, form_class=None):
@@ -206,12 +213,10 @@ class BlogPostCreateView(CreateView):
         return form
 
     def form_valid(self, form):
-        formset = self.get_context_data()['formset']
         self.object = form.save()
 
-        if form.is_valid() and formset.is_valid():
-            formset.instance = self.object
-            blog = formset.save(commit=False)
+        if form.is_valid():
+            blog = form.save(commit=False)
             print(f"Before: Title: {blog.title}, Slug: {blog.slug}")
             blog.slug = slugify(blog.title)
             print(f"After: Title: {blog.title}, Slug: {blog.slug}")
@@ -234,19 +239,17 @@ class BlogPostUpdateView(UpdateView):
                 field.widget.attrs['class'] = 'form-check-input'
         return form
 
-    def form_valid(self, form):
-        formset = self.get_context_data()['formset']
-        self.object = form.save()
-
-        if form.is_valid() and formset.is_valid():
-            formset.instance = self.object
-            blog = formset.save(commit=False)
-            print(f"Before: Title: {blog.title}, Slug: {blog.slug}")
-            blog.slug = slugify(blog.title)
-            print(f"After: Title: {blog.title}, Slug: {blog.slug}")
-            blog.save()
-
-        return super().form_valid(form)
+    # def form_valid(self, form):
+    #     self.object = form.save()
+    #
+    #     if form.is_valid():
+    #         blog = form.save(commit=False)
+    #         print(f"Before: Title: {blog.title}, Slug: {blog.slug}")
+    #         blog.slug = slugify(blog.title)
+    #         print(f"After: Title: {blog.title}, Slug: {blog.slug}")
+    #         blog.save()
+    #
+    #     return super().form_valid(form)
 
     def get_success_url(self):
         return reverse('catalog:blogpost_detail', args=[self.kwargs.get('slug')])
