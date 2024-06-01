@@ -5,7 +5,7 @@ from users.forms import UserRegisterForm
 from users.models import User
 
 
-class UserRegisterView(CreateView):
+class UserCreateView(CreateView):
     model = User
     form_class = UserRegisterForm
     template_name = 'users/register.html'
