@@ -2,6 +2,9 @@ from django.db import models
 from django.urls import reverse
 
 
+NULLABLE = {'blank': True, 'null': True}
+
+
 class Category(models.Model):
     objects = models.Manager()
 
@@ -22,7 +25,7 @@ class Product(models.Model):
 
     name = models.CharField(max_length=250, verbose_name='Название')
     description = models.TextField(verbose_name='Описание')
-    image = models.ImageField(upload_to='goods/', verbose_name='Изображение')
+    image = models.ImageField(upload_to='goods/', verbose_name='Изображение', **NULLABLE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория')
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
