@@ -3,10 +3,7 @@ from django.db import models
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
 
-from catalog.models import NULLABLE
-
-
-# Create your models here.
+NULLABLE = {'blank': True, 'null': True}
 class User(AbstractUser):
     username = None
 

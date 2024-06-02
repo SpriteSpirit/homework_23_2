@@ -103,10 +103,14 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         formset = self.get_context_data()['formset']
-        self.object = form.save()
+        product = form.save()
+
+        user = self.request.user
+        product.owner = user
+        product.save()
 
         if form.is_valid() and formset.is_valid():
-            formset.instance = self.object
+            formset.instance = object
             formset.save()
 
         messages.success(self.request, 'Товар успешно создан')
@@ -117,7 +121,7 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         return reverse_lazy('catalog:product_list')
 
 
-class ProductListView(LoginRequiredMixin, ListView):
+class ProductListView(ListView):
     model = Product
 
     def get_context_data(self, **kwargs):
