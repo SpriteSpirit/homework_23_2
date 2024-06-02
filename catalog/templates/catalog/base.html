@@ -52,8 +52,9 @@
                       style="display:none;">
                     {% csrf_token %}
                 </form>
+
                 {% else %}
-                <a href="{% url 'users:register' %}" class="text-dark">Регистрация
+                <a href="{% url 'users:register' %}" class="text-dark">
                     <button type="button" class="btn btn-outline-light me-2">Регистрация</button>
                 </a>
                 <a href="{% url 'users:login' %}" class="text-white">

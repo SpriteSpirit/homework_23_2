@@ -8,9 +8,8 @@ from django.urls import reverse_lazy, reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.views.generic import CreateView
-
 from users.forms import UserRegisterForm, CustomAuthenticationForm
-from users.models import User
+
 
 from random import randint
 
@@ -18,6 +17,8 @@ from config.settings import EMAIL_HOST_USER
 
 import secrets
 from django.utils.html import strip_tags
+
+from users.models import User
 
 
 class UserCreateView(CreateView):

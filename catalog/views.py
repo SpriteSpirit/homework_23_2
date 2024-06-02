@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db import transaction
 from django.forms import inlineformset_factory
 from django.shortcuts import get_object_or_404, redirect
 
@@ -102,18 +103,25 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         return context
 
     def form_valid(self, form):
-        formset = self.get_context_data()['formset']
-        product = form.save()
+        with transaction.atomic():
+            self.object = form.save(commit=False)
 
-        user = self.request.user
-        product.owner = user
-        product.save()
+            user = self.request.user
+            self.object.owner = user
+            self.object.save()
 
-        if form.is_valid() and formset.is_valid():
-            formset.instance = object
-            formset.save()
+            formset = self.get_context_data()['formset']
+            formset.instance = self.object
 
-        messages.success(self.request, 'Товар успешно создан')
+            if form.is_valid() and formset.is_valid():
+                versions = formset.save(commit=False)  # Сохраняем версии без немедленного фиксирования
+
+                for version in versions:
+                    version.product = self.object  # Устанавливаем ссылку на сохраненный товар
+                    version.save()  # Фиксируем каждую версию
+
+
+            messages.success(self.request, 'Товар успешно создан')
 
         return super().form_valid(form)
 

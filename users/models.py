@@ -4,6 +4,8 @@ from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
 
 NULLABLE = {'blank': True, 'null': True}
+
+
 class User(AbstractUser):
     username = None
 
