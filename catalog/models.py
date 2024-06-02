@@ -76,6 +76,7 @@ class Version(models.Model):
     class Meta:
         verbose_name = 'Версия'
         verbose_name_plural = 'Версии'
+        unique_together = (('product', 'version_number'),)
 
     def __str__(self):
         return f'{self.product} {self.version_number} {self.version_name} {self.is_current}'
