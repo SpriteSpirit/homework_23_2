@@ -1,52 +1,5 @@
 [
 {
-  "model": "admin.logentry",
-  "pk": 17,
-  "fields": {
-    "action_time": "2024-05-25T22:29:41.013Z",
-    "user": 3,
-    "content_type": 10,
-    "object_id": "2",
-    "object_repr": "Тест [Электроника] 150.00 123 new123 True",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\u0422\\u0435\\u043a\\u0443\\u0449\\u0430\\u044f \\u0432\\u0435\\u0440\\u0441\\u0438\\u044f\"]}}]"
-  }
-},
-{
-  "model": "auth.user",
-  "pk": 3,
-  "fields": {
-    "password": "pbkdf2_sha256$720000$2r4ENtRWtUarGbew1RAsjU$+rYREEmxz5EyIfA//McNK+Oxb0qsLgQ4JEvikjGBpDY=",
-    "last_login": "2024-05-25T20:46:59.514Z",
-    "is_superuser": true,
-    "username": "admin",
-    "first_name": "",
-    "last_name": "",
-    "email": "",
-    "is_staff": true,
-    "is_active": true,
-    "date_joined": "2024-05-25T20:46:40.546Z",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "sessions.session",
-  "pk": "1y1t0bnxpaaynwyrgqadwm6kc0g8cf1h",
-  "fields": {
-    "session_data": ".eJxVjMsOwiAQRf-FtSEMg9C6dN9vIMMwlaqBpI-V8d-1SRe6veec-1KRtrXEbZE5TlldFKjT75aIH1J3kO9Ub01zq-s8Jb0r-qCLHlqW5_Vw_w4KLeVbM1kGIRA-E_hk0Tm0NvUcshPBrjcWgnc8Wocm5ICmG2HEjOC8JwPq_QHg4Dch:1s8bfb:sY0N2wQ_0hmpbs3iU9OiyaOuT62nzli3XdoPldtjQvo",
-    "expire_date": "2024-06-02T08:13:27.748Z"
-  }
-},
-{
-  "model": "sessions.session",
-  "pk": "5zhhwjv2dpqhpxwyy6fyeek936z4vx0i",
-  "fields": {
-    "session_data": ".eJxVjDsOwjAQBe_iGlm24y8lPWew1rtrHECJFCcV4u4QKQW0b2beS2TY1pa3zkseSZzFIE6_WwF88LQDusN0myXO07qMRe6KPGiX15n4eTncv4MGvX3rNFRnhsjVFCyMBNq4FMlG1mx9AlsQPDivKaSoko8qVEuIFIoy4KN4fwD5DThF:1sAyI7:Z5q7DoKEoQvVysQjnyQNBLxG1FwzJxU8t4FCFNsfETI",
-    "expire_date": "2024-06-08T20:46:59.517Z"
-  }
-},
-{
   "model": "catalog.category",
   "pk": 1,
   "fields": {

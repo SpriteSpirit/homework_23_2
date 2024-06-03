@@ -18,11 +18,14 @@ class StyleFormMixin:
             if field_name == 'is_current':
                 field.widget.attrs['class'] = 'form-check-input'
 
+            if field_name == 'published':
+                field.widget.attrs['class'] = 'form-check-input'
+
 
 class ProductForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name', 'description', 'category', 'image', 'price']
+        fields = '__all__'
         exclude = ('owner',)
 
     def clean_name(self):
