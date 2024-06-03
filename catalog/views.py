@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.db import transaction
 from django.forms import inlineformset_factory
 from django.shortcuts import get_object_or_404, redirect
@@ -86,13 +86,15 @@ class ProductDetailView(LoginRequiredMixin, DetailView):
         return get_object_or_404(Product, id=pk)
 
 
-class ProductCreateView(LoginRequiredMixin, CreateView):
+class ProductCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:product_list')
+    permission_required = 'catalog.add_product'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['request'] = self.request
         VersionFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1, can_delete=True)
 
         if self.request.method == "POST":
@@ -120,7 +122,6 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
                     version.product = self.object  # Устанавливаем ссылку на сохраненный товар
                     version.save()  # Фиксируем каждую версию
 
-
             messages.success(self.request, 'Товар успешно создан')
 
         return super().form_valid(form)
@@ -132,20 +133,26 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
 class ProductListView(LoginRequiredMixin, ListView):
     model = Product
 
-
-def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'СПИСОК ТОВАРОВ'
         return context
 
 
-class ProductUpdateView(LoginRequiredMixin, UpdateView):
+class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:product_list')
+    permission_required = 'catalog.change_product'
+
+    def get_form_kwargs(self):
+        kwargs = super(ProductUpdateView, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         VersionFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1, can_delete=True)
 
         if self.request.method == "POST":
@@ -153,6 +160,7 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
         else:
             context['formset'] = VersionFormset(instance=self.object)
 
+        context['request'] = self.request
         return context
 
     def form_valid(self, form):
@@ -171,9 +179,10 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
         return reverse_lazy('catalog:product_list')
 
 
-class ProductDeleteView(LoginRequiredMixin, DeleteView):
+class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:product_list')
+    permission_required = 'catalog.delete_product'
 
 
 class BlogPostListView(LoginRequiredMixin, ListView):
@@ -204,11 +213,12 @@ class BlogPostDetailView(LoginRequiredMixin, DetailView):
         return blog
 
 
-class BlogPostCreateView(LoginRequiredMixin, CreateView):
+class BlogPostCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = BlogPost
     template_name = 'catalog/blogpost_form.html'
     fields = ['title', 'content', 'preview', 'published']
     success_url = reverse_lazy('catalog:blogpost_list')
+    permission_required = 'catalog.view_blogpost'
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -234,10 +244,11 @@ class BlogPostCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class BlogPostUpdateView(LoginRequiredMixin, UpdateView):
+class BlogPostUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = BlogPost
     template_name = 'catalog/blogpost_form.html'
     fields = ['title', 'content', 'preview', 'published']
+    permission_required = 'catalog.change_blogpost'
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -266,7 +277,8 @@ class BlogPostUpdateView(LoginRequiredMixin, UpdateView):
         return reverse('catalog:blogpost_detail', args=[self.kwargs.get('slug')])
 
 
-class BlogPostDeleteView(LoginRequiredMixin, DeleteView):
+class BlogPostDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = BlogPost
     template_name = 'catalog/blogpost_confirm_delete.html'
     success_url = reverse_lazy('catalog:blogpost_list')
+    permission_required = 'catalog.delete_blogpost'

@@ -32,7 +32,7 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
 
-    published = models.BooleanField(default=False, verbose_name='Опубликован')
+    is_published = models.BooleanField(default=False, verbose_name='Опубликован')
 
     owner = models.ForeignKey(User, verbose_name='Владелец', on_delete=models.SET_NULL, **NULLABLE)
 
@@ -44,12 +44,10 @@ class Product(models.Model):
         verbose_name_plural = 'Товары'
 
     permissions = [
-        ('can_change_published_product', 'Change published product'),
-        ('can_change_product', 'Change product'),
-        ('can_change_category', 'Change category'),
-
+        ('can_change_product_publication', 'Change product publication'),
+        ('can_change_description_product', 'Change product description'),
+        ('can_change_category', 'Change product category'),
     ]
-
 
 
 class BlogPost(models.Model):

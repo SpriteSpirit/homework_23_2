@@ -13,10 +13,14 @@
             <div class="card-footer mb-4 mt-3 m-4 text-center">
                 <button type="button" class="btn btn-lg btn-block bg-warning text-dark w-50">Купить
                 </button>
+                {% if user.is_authenticated and perms.catalog.change_product %}
                 <a href="{% url 'catalog:update_product' object.pk %}"
                    class="mt-1 btn btn-lg btn-block btn-outline-warning w-50">Edit</a>
+                {% endif %}
+                {% if user.is_superuser %}
                 <a href="{% url 'catalog:product_confirm_delete' object.pk %}"
                    class="mt-1 btn btn-lg btn-block btn-outline-danger w-50">Delete</a>
+                {% endif %}
             </div>
         </div>
     </div>

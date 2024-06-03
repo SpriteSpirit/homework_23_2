@@ -31,7 +31,7 @@
 
     <div class="container m-5">
         <div class="d-grid gap-2 d-md-flex justify-content-center"  style="height: 10rem;">
-            {% if user.is_authenticated %}
+            {% if user.is_authenticated and perms.catalog.add_product %}
             <a href="{% url 'catalog:create_product' %}">
                 <button type="button" class="btn btn-md btn-block bg-dark text-white">Добавить товар
                 </button>

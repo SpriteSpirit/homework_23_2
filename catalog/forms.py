@@ -12,35 +12,55 @@ class StyleFormMixin:
         super().__init__(*args, **kwargs)
 
         for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
-            field.widget.attrs['placeholder'] = field.label
-
-            if field_name == 'is_current':
+            if 'is' in field_name:
                 field.widget.attrs['class'] = 'form-check-input'
-
-            if field_name == 'published':
-                field.widget.attrs['class'] = 'form-check-input'
+            else:
+                field.widget.attrs['class'] = 'form-control'
+                field.widget.attrs['placeholder'] = field.label
 
 
 class ProductForm(StyleFormMixin, forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user')
+        super(ProductForm, self).__init__(*args, **kwargs)
+
+        if not self.user.has_perm('catalog.can_change_product_publication'):
+            self.fields['is_published'].widget = forms.HiddenInput()
+            self.fields['is_published'].required = False
+            # print(self.user)
+            # print(self.user.get_all_permissions())
+
+        if not self.user.has_perm('catalog.can_change_description_product'):
+            self.fields['description'].widget = forms.HiddenInput()
+            self.fields['description'].required = False
+            # print(self.user)
+            # print(self.user.get_all_permissions())
+
+        if not self.user.has_perm('catalog.can_change_category'):
+            self.fields['category'].widget = forms.HiddenInput()
+            self.fields['category'].required = False
+
     class Meta:
         model = Product
         fields = '__all__'
         exclude = ('owner',)
 
-    def clean_name(self):
-        name = self.cleaned_data['name']
 
-        if any(word in name.lower() for word in FORBIDDEN_WORDS):
-            raise forms.ValidationError('Нельзя использовать запрещенные слова')
-        return name
+def clean_name(self):
+    name = self.cleaned_data['name']
 
-    def clean_description(self):
-        description = self.cleaned_data['description']
+    if any(word in name.lower() for word in FORBIDDEN_WORDS):
+        raise forms.ValidationError('Нельзя использовать запрещенные слова')
+    return name
 
-        if any(word in description.lower() for word in FORBIDDEN_WORDS):
-            raise forms.ValidationError('Нельзя использовать запрещенные слова')
-        return description
+
+def clean_description(self):
+    description = self.cleaned_data['description']
+
+    if any(word in description.lower() for word in FORBIDDEN_WORDS):
+        raise forms.ValidationError('Нельзя использовать запрещенные слова')
+    return description
 
 
 class BlogPostForm(forms.ModelForm):

@@ -1,2 +1,6 @@
 python -Xutf8 manage.py dumpdata --indent=2 --exclude auth.permission --exclude contenttypes -o db.json
 python manage.py loaddata db.json
+python -Xutf8 manage.py dumpdata auth.group --indent 4 > groups.json
+
+Команда для создания группы и назначения прав
+python manage.py create_moderator_group
