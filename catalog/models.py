@@ -41,6 +41,14 @@ class Product(models.Model):
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
 
+    permissions = [
+        ('can_change_published_product', 'Change published product'),
+        ('can_change_product', 'Change product'),
+        ('can_change_category', 'Change category'),
+
+    ]
+
+
 
 class BlogPost(models.Model):
     objects = models.Manager()
