@@ -9,11 +9,11 @@ from .utils import slugify
 from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from .forms import ProductForm, VersionForm, BlogPostForm
+from .forms import ProductForm, VersionForm
 from .models import Product, Category, BlogPost, Version
 
 
-class HomeView(TemplateView):
+class HomeView(LoginRequiredMixin, TemplateView):
     template_name = 'catalog/home.html'
 
     def get_context_data(self, **kwargs):
@@ -30,7 +30,7 @@ class HomeView(TemplateView):
         return self.get(request, *args, **kwargs)
 
 
-class ContactsView(TemplateView):
+class ContactsView(LoginRequiredMixin, TemplateView):
     template_name = 'catalog/contacts.html'
 
     def get_context_data(self, **kwargs):
@@ -56,7 +56,7 @@ class ContactsView(TemplateView):
         return self.get(request, *args, **kwargs)
 
 
-class CategoryListView(ListView):
+class CategoryListView(LoginRequiredMixin, ListView):
     model = Category
     context_object_name = 'object_list'
     template_name = 'catalog/categories.html'
@@ -70,7 +70,7 @@ class CategoryListView(ListView):
         return super().get_queryset().order_by('name')
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
     context_object_name = 'object'
     template_name = 'catalog/product_detail.html'
@@ -129,16 +129,17 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         return reverse_lazy('catalog:product_list')
 
 
-class ProductListView(ListView):
+class ProductListView(LoginRequiredMixin, ListView):
     model = Product
 
-    def get_context_data(self, **kwargs):
+
+def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'СПИСОК ТОВАРОВ'
         return context
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:product_list')
@@ -170,12 +171,12 @@ class ProductUpdateView(UpdateView):
         return reverse_lazy('catalog:product_list')
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:product_list')
 
 
-class BlogPostListView(ListView):
+class BlogPostListView(LoginRequiredMixin, ListView):
     model = BlogPost
     template_name = 'catalog/blogpost_list.html'
     context_object_name = 'blogposts'
@@ -190,7 +191,7 @@ class BlogPostListView(ListView):
         return queryset
 
 
-class BlogPostDetailView(DetailView):
+class BlogPostDetailView(LoginRequiredMixin, DetailView):
     model = BlogPost
     template_name = 'catalog/blogpost_detail.html'
     context_object_name = 'blogpost'
@@ -203,7 +204,7 @@ class BlogPostDetailView(DetailView):
         return blog
 
 
-class BlogPostCreateView(CreateView):
+class BlogPostCreateView(LoginRequiredMixin, CreateView):
     model = BlogPost
     template_name = 'catalog/blogpost_form.html'
     fields = ['title', 'content', 'preview', 'published']
@@ -233,7 +234,7 @@ class BlogPostCreateView(CreateView):
         return super().form_valid(form)
 
 
-class BlogPostUpdateView(UpdateView):
+class BlogPostUpdateView(LoginRequiredMixin, UpdateView):
     model = BlogPost
     template_name = 'catalog/blogpost_form.html'
     fields = ['title', 'content', 'preview', 'published']
@@ -265,7 +266,7 @@ class BlogPostUpdateView(UpdateView):
         return reverse('catalog:blogpost_detail', args=[self.kwargs.get('slug')])
 
 
-class BlogPostDeleteView(DeleteView):
+class BlogPostDeleteView(LoginRequiredMixin, DeleteView):
     model = BlogPost
     template_name = 'catalog/blogpost_confirm_delete.html'
     success_url = reverse_lazy('catalog:blogpost_list')
