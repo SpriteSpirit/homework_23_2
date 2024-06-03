@@ -148,6 +148,8 @@ class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
     def get_form_kwargs(self):
         kwargs = super(ProductUpdateView, self).get_form_kwargs()
         kwargs.update({'user': self.request.user})
+        print(self.request.user.get_all_permissions())
+        print(self.request.user)
         return kwargs
 
     def get_context_data(self, **kwargs):
