@@ -4,7 +4,7 @@
 
 <div class="container">
     <div class="row justify-content-center text-center m-3">
-        <h1>Все опубликованные посты</h1>
+        <h2>Все опубликованные посты</h2>
     </div>
     <div class="row">
         {% for blogpost in blogposts %}
@@ -28,7 +28,10 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
                                 <a href="{% url 'catalog:blogpost_detail' blogpost.slug %}" class="btn btn-primary m-1">Читать</a>
+
+                                {% if perms.catalog.change_blogpost and user.is_stuff %}
                                 <a href="{% url 'catalog:blogpost_update' blogpost.slug %}" class="btn btn-warning m-1">Редактировать</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -37,9 +40,12 @@
         </div>
         {% endfor %}
     </div>
+
+    {% if perms.catalog.add_blogpost and user.is_stuff %}
     <div class="d-flex justify-content-center align-items-center mt-5">
         <a href="{% url 'catalog:blogpost_create' %}" class="btn btn-success">Создать новый пост</a>
     </div>
+    {% endif %}
 </div>
 
 {% endblock %}

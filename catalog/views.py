@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.db import transaction
 from django.forms import inlineformset_factory
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404
 
 from django.contrib import messages
 from .utils import slugify
@@ -148,8 +148,8 @@ class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
     def get_form_kwargs(self):
         kwargs = super(ProductUpdateView, self).get_form_kwargs()
         kwargs.update({'user': self.request.user})
-        print(self.request.user.get_all_permissions())
-        print(self.request.user)
+        # print(self.request.user.get_all_permissions())
+        # print(self.request.user)
         return kwargs
 
     def get_context_data(self, **kwargs):
@@ -187,10 +187,11 @@ class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView)
     permission_required = 'catalog.delete_product'
 
 
-class BlogPostListView(LoginRequiredMixin, ListView):
+class BlogPostListView(LoginRequiredMixin, PermissionRequiredMixin,  ListView):
     model = BlogPost
     template_name = 'catalog/blogpost_list.html'
     context_object_name = 'blogposts'
+    permission_required = 'catalog.view_blogpost'
 
     # paginate_by = 3
 
@@ -200,6 +201,11 @@ class BlogPostListView(LoginRequiredMixin, ListView):
         queryset = queryset.order_by('created_at')
 
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'БЛОГИ'
+        return context
 
 
 class BlogPostDetailView(LoginRequiredMixin, DetailView):
@@ -220,24 +226,13 @@ class BlogPostCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView
     template_name = 'catalog/blogpost_form.html'
     fields = ['title', 'content', 'preview', 'published']
     success_url = reverse_lazy('catalog:blogpost_list')
-    permission_required = 'catalog.view_blogpost'
-
-    def get_form(self, form_class=None):
-        form = super().get_form(form_class)
-        # Применяем класс CSS "form-control" ко всем полям формы
-        for field_name, field in form.fields.items():
-            field.widget.attrs['class'] = 'form-control'
-            if field_name == 'published':
-                field.widget.attrs['class'] = 'form-check-input'
-        return form
+    permission_required = 'catalog.add_blogpost'
 
     def form_valid(self, form):
-        formset = self.get_context_data()['formset']
         self.object = form.save()
 
-        if form.is_valid() and formset.is_valid():
-            formset.instance = self.object
-            blog = formset.save(commit=False)
+        if form.is_valid():
+            blog = form.save(commit=False)
             print(f"Before: Title: {blog.title}, Slug: {blog.slug}")
             blog.slug = slugify(blog.title)
             print(f"After: Title: {blog.title}, Slug: {blog.slug}")

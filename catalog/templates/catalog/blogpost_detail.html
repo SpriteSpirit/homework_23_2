@@ -21,12 +21,19 @@
                 </div>
                 <div class="col-md-12">
                     <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+
+                        {% if perms.catalog.change_blogpost and user.is_stuff %}
                         <a href="{% url 'catalog:blogpost_update' blogpost.slug %}">
                             <button type="button" class="m-2 btn btn-warning">Редактировать</button>
                         </a>
+                        {% endif %}
+
+                        {% if perms.catalog.delete_blogpost or user.is_superuser %}
                         <a href="{% url 'catalog:blogpost_confirm_delete' blogpost.slug %}">
                             <button type="button" class="m-2 btn btn-danger">Удалить</button>
                         </a>
+                        {% endif %}
+
                         <a href="{% url 'catalog:blogpost_list' %}">
                             <button type="button" class="m-2 btn btn-success">Назад</button>
                         </a>

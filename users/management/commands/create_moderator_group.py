@@ -6,7 +6,7 @@ from catalog.models import Product
 
 
 class Command(BaseCommand):
-    help = 'Создание групп с особыми правами доступа'
+    help = 'Создание группы с особыми правами доступа'
 
     def handle(self, *args, **options):
         content_type = ContentType.objects.get_for_model(Product)

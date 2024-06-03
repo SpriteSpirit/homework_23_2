@@ -48,24 +48,23 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
         fields = '__all__'
         exclude = ('owner',)
 
+    def clean_name(self):
+        name = self.cleaned_data['name']
 
-def clean_name(self):
-    name = self.cleaned_data['name']
+        if any(word in name.lower() for word in FORBIDDEN_WORDS):
+            raise forms.ValidationError('Нельзя использовать запрещенные слова')
+        return name
 
-    if any(word in name.lower() for word in FORBIDDEN_WORDS):
-        raise forms.ValidationError('Нельзя использовать запрещенные слова')
-    return name
+    def clean_description(self):
+        description = self.cleaned_data['description']
 
-
-def clean_description(self):
-    description = self.cleaned_data['description']
-
-    if any(word in description.lower() for word in FORBIDDEN_WORDS):
-        raise forms.ValidationError('Нельзя использовать запрещенные слова')
-    return description
+        if any(word in description.lower() for word in FORBIDDEN_WORDS):
+            raise forms.ValidationError('Нельзя использовать запрещенные слова')
+        return description
 
 
-class BlogPostForm(forms.ModelForm):
+class BlogPostForm(StyleFormMixin, forms.ModelForm):
+
     class Meta:
         model = BlogPost
         fields = ['title', 'content', 'preview', 'published']
