@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_redis'
 
     'phonenumber_field',
     'django_countries',
@@ -53,7 +54,6 @@ INSTALLED_APPS = [
     'catalog',
     'users',
 ]
-
 
 ROOT_URLCONF = 'config.urls'
 
@@ -153,3 +153,14 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 EMAIL_DEFAULT = 'password_reset_email.html'
 LOGIN_URL = '/users/login/'
+
+CACHE_ENABLED = True
+
+if CACHE_ENABLED:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": "redis://127.0.0.1:6379",
+            "TIMEOUT": 300  # Ручная регулировка времени жизни кеша в секундах, по умолчанию 300
+        }
+    }
