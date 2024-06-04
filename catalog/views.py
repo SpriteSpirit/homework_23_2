@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 
 from django.contrib import messages
 
-from .services import get_cached_products, get_categories
+from .services import get_cached_products
 from .utils import slugify
 
 from django.urls import reverse_lazy, reverse
@@ -66,7 +66,6 @@ class CategoryListView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'КАТАЛОГ'
-        context['categories'] = get_categories()
         return context
 
     def get_queryset(self):
