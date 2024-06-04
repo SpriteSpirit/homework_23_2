@@ -4,8 +4,6 @@ from django.forms import inlineformset_factory
 from django.shortcuts import get_object_or_404
 
 from django.contrib import messages
-
-from .services import get_cached_products
 from .utils import slugify
 
 from django.urls import reverse_lazy, reverse
@@ -137,9 +135,7 @@ class ProductListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['products'] = get_cached_products()
         context['title'] = 'СПИСОК ТОВАРОВ'
-
         return context
 
 
