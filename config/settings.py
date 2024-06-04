@@ -54,7 +54,6 @@ INSTALLED_APPS = [
     'users',
 ]
 
-
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
