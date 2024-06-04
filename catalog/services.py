@@ -1,7 +1,6 @@
 from django.core.cache import cache
 
-from catalog.models import Product, Category, BlogPost
-from catalog.utils import slugify
+from catalog.models import Product, Category
 from config import settings
 
 
@@ -25,8 +24,6 @@ def get_cached_products():
             products = Product.objects.all()
             cache.add(cache_key, products, cache_timeout)
 
-        print(f'Кэширование продуктов {cache.get(cache_key)}')
-
         return products
 
 
@@ -40,27 +37,5 @@ def get_categories():
     if not categories:
         categories = Category.objects.all()
         cache.set(cache_key, categories, cache_timeout)
-
-    print(f'Кэширование категорий {cache.get(cache_key)}')
-
     return categories
 
-
-def get_cached_blog(slug):
-    # кеширование на 15 минут
-    cache_timeout = 60 * 15
-
-    if settings.CACHE_ENABLED:
-        cache_key = slug
-
-        blog = cache.get_or_set(cache_key, cache_timeout)
-
-        if not blog:
-            blog = BlogPost.objects.get(slug=slug),
-            cache.add(cache_key, blog, cache_timeout)
-
-        print(f'Кэширование блога {slug}')
-    else:
-        blog = BlogPost.objects.get(slug=slug)
-
-    return blog
