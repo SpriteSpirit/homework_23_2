@@ -4,8 +4,7 @@ from django.forms import inlineformset_factory
 from django.shortcuts import get_object_or_404
 
 from django.contrib import messages
-
-from .services import get_cached_products, get_categories
+from .services import get_cached_products, get_categories, get_cached_blog
 from .utils import slugify
 
 from django.urls import reverse_lazy, reverse
@@ -80,6 +79,7 @@ class ProductDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['products'] = get_cached_products()
         context['title'] = self.object.name
         return context
 
@@ -132,6 +132,31 @@ class ProductCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
     def get_success_url(self):
         return reverse_lazy('catalog:product_list')
 
+    def form_valid(self, form):
+        with transaction.atomic():
+            self.object = form.save(commit=False)
+
+            user = self.request.user
+            self.object.owner = user
+            self.object.save()
+
+            formset = self.get_context_data()['formset']
+            formset.instance = self.object
+
+            if form.is_valid() and formset.is_valid():
+                versions = formset.save(commit=False)  # Сохраняем версии без немедленного фиксирования
+
+                for version in versions:
+                    version.product = self.object  # Устанавливаем ссылку на сохраненный товар
+                    version.save()  # Фиксируем каждую версию
+
+            messages.success(self.request, 'Товар успешно создан')
+
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('catalog:product_list')
+
 
 class ProductListView(LoginRequiredMixin, ListView):
     model = Product
@@ -153,8 +178,8 @@ class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
     def get_form_kwargs(self):
         kwargs = super(ProductUpdateView, self).get_form_kwargs()
         kwargs.update({'user': self.request.user})
-        # print(self.request.user.get_all_permissions())
-        # print(self.request.user)
+        print(self.request.user.get_all_permissions())
+        print(self.request.user)
         return kwargs
 
     def get_context_data(self, **kwargs):
@@ -217,6 +242,13 @@ class BlogPostDetailView(LoginRequiredMixin, DetailView):
     model = BlogPost
     template_name = 'catalog/blogpost_detail.html'
     context_object_name = 'blogpost'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = self.object.title
+        context['blog'] = get_cached_blog(self.object.slug)
+
+        return context
 
     def get_object(self, queryset=None):
         blog = super().get_object(queryset)

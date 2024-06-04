@@ -11,15 +11,18 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv(BASE_DIR / '.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-1j-^4n#x0p$538l&t4a#$8wlmj1)igabsg0xh_9o8tv!mh0$5@'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -82,7 +85,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'shop2',
         'USER': 'postgres',
-        'PASSWORD': '1z384AB732cd',  # macOS 2277
+        'PASSWORD': os.getenv('DB_PASSWORD'),  # macOS 2277
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -140,8 +143,8 @@ EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 
-EMAIL_HOST_USER = 'a.backer@yandex.ru'
-EMAIL_HOST_PASSWORD = 'azhkzxtwptbymgdn'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = EMAIL_HOST_USER
@@ -153,13 +156,14 @@ LOGOUT_REDIRECT_URL = '/'
 EMAIL_DEFAULT = 'password_reset_email.html'
 LOGIN_URL = '/users/login/'
 
-CACHE_ENABLED = True
+CACHE_ENABLED = os.getenv('CACHE_ENABLED')
 
 if CACHE_ENABLED:
     CACHES = {
         "default": {
             "BACKEND": "django.core.cache.backends.redis.RedisCache",
-            "LOCATION": "redis://127.0.0.1:6379",
+            "LOCATION": os.getenv('CACHE_LOCATION'),
             "TIMEOUT": 300  # Ручная регулировка времени жизни кеша в секундах, по умолчанию 300
         }
     }
+

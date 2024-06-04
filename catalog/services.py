@@ -40,3 +40,38 @@ def get_categories():
     return categories
 
 
+def get_cached_blog(slug):
+    # кеширование на 15 минут
+    cache_timeout = 60 * 15
+    cache_key = slug
+
+    if settings.CACHE_ENABLED:
+        blog = cache.get_or_set(cache_key, cache_timeout)
+
+        if not blog:
+            blog = BlogPost.objects.get(slug=slug),
+            cache.add(cache_key, blog, cache_timeout)
+    else:
+        blog = BlogPost.objects.get(slug=slug)
+
+    print(f'Кэширование блога {slug}')
+    return blog
+
+
+def get_cached_blogs():
+    # кеширование на 30 минут
+    cache_timeout = 60 * 30
+    cache_key = 'blogs'
+
+    if settings.CACHE_ENABLED:
+        blogs = cache.get_or_set(cache_key, BlogPost.objects.all, cache_timeout)
+
+        if not blogs:
+            blogs = BlogPost.objects.all()
+            cache.add(cache_key, blogs, cache_timeout)
+    else:
+        blogs = BlogPost.objects.all()
+
+    print(f'Кэширование продуктов {cache.get(cache_key)}')
+
+    return blogs
