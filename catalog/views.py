@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 
 from django.contrib import messages
 
-from .services import get_cached_products, get_categories
+from .services import get_cached_products, get_categories, get_cached_blog
 from .utils import slugify
 
 from django.urls import reverse_lazy, reverse
@@ -217,6 +217,13 @@ class BlogPostDetailView(LoginRequiredMixin, DetailView):
     model = BlogPost
     template_name = 'catalog/blogpost_detail.html'
     context_object_name = 'blogpost'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = self.object.title
+        context['blog'] = get_cached_blog(self.object.slug)
+
+        return context
 
     def get_object(self, queryset=None):
         blog = super().get_object(queryset)
