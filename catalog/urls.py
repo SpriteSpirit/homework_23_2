@@ -30,4 +30,3 @@ urlpatterns = [
     path('<slug:slug>/update/', BlogPostUpdateView.as_view(), name='blogpost_update'),
     path('<slug:slug>/delete/', BlogPostDeleteView.as_view(), name='blogpost_confirm_delete'),
 ]
-

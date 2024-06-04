@@ -132,31 +132,6 @@ class ProductCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
     def get_success_url(self):
         return reverse_lazy('catalog:product_list')
 
-    def form_valid(self, form):
-        with transaction.atomic():
-            self.object = form.save(commit=False)
-
-            user = self.request.user
-            self.object.owner = user
-            self.object.save()
-
-            formset = self.get_context_data()['formset']
-            formset.instance = self.object
-
-            if form.is_valid() and formset.is_valid():
-                versions = formset.save(commit=False)  # Сохраняем версии без немедленного фиксирования
-
-                for version in versions:
-                    version.product = self.object  # Устанавливаем ссылку на сохраненный товар
-                    version.save()  # Фиксируем каждую версию
-
-            messages.success(self.request, 'Товар успешно создан')
-
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return reverse_lazy('catalog:product_list')
-
 
 class ProductListView(LoginRequiredMixin, ListView):
     model = Product

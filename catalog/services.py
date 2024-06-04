@@ -1,6 +1,6 @@
 from django.core.cache import cache
 
-from catalog.models import Product, Category
+from catalog.models import Product, Category, BlogPost
 from config import settings
 
 
@@ -14,17 +14,20 @@ def get_cached_products():
     """
     # кеширование на 15 минут
     cache_timeout = 60 * 15
+    cache_key = 'products'
 
     if settings.CACHE_ENABLED:
-        cache_key = 'products'
-
         products = cache.get_or_set(cache_key, Product.objects.all, cache_timeout)
 
         if not products:
             products = Product.objects.all()
             cache.add(cache_key, products, cache_timeout)
+    else:
+        products = Product.objects.all()
 
-        return products
+    print(f'Кэширование продуктов {cache.get(cache_key)}')
+
+    return products
 
 
 def get_categories():
@@ -37,6 +40,11 @@ def get_categories():
     if not categories:
         categories = Category.objects.all()
         cache.set(cache_key, categories, cache_timeout)
+    else:
+        categories = Category.objects.all()
+
+    print(f'Кэширование категорий {cache.get(cache_key)}')
+
     return categories
 
 
